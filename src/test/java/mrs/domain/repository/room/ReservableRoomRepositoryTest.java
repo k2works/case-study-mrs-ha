@@ -6,10 +6,9 @@ import mrs.domain.model.ReservableRoomId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@ExtendWith(SpringExtension.class)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ReservableRoomRepositoryTest {
 
     @Autowired
@@ -30,9 +29,6 @@ class ReservableRoomRepositoryTest {
     void setUp() {
         reservableRoomRepository.deleteAll();
 
-        ReservableRoomId id1 = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
-        ReservableRoomId id2 = new ReservableRoomId(2, LocalDate.of(2023, 10, 1));
-
         MeetingRoom room1 = new MeetingRoom();
         room1.setRoomId(1);
         room1.setRoomName("会議室1");
@@ -43,6 +39,8 @@ class ReservableRoomRepositoryTest {
         room2.setRoomName("会議室2");
         meetingRoomRepository.save(room2);
 
+        ReservableRoomId id1 = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
+        ReservableRoomId id2 = new ReservableRoomId(2, LocalDate.of(2023, 10, 1));
         ReservableRoom reservableRoom1 = new ReservableRoom(id1, room1);
         ReservableRoom reservableRoom2 = new ReservableRoom(id2, room2);
 
