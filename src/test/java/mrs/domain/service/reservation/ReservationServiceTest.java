@@ -71,7 +71,7 @@ public class ReservationServiceTest {
         reservableRoom.setReservableRoomId(reservableRoomId);
         reservation.setReservableRoom(reservableRoom);
 
-        when(reservableRoomRepository.findById(reservableRoomId)).thenReturn(Optional.of(reservableRoom));
+        when(reservableRoomRepository.findOneForUpdateByReservableRoomId(reservableRoomId)).thenReturn(reservableRoom);
         when(reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId))
                 .thenReturn(new ArrayList<>());
         when(reservationRepository.save(reservation)).thenReturn(reservation);
@@ -112,7 +112,7 @@ public class ReservationServiceTest {
         reservation.setEndTime(LocalTime.of(11, 0));
         reservation.setReservableRoom(reservableRoom);
 
-        when(reservableRoomRepository.findById(reservableRoomId)).thenReturn(Optional.of(reservableRoom));
+        when(reservableRoomRepository.findOneForUpdateByReservableRoomId(reservableRoomId)).thenReturn(reservableRoom);
         when(reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId))
                 .thenReturn(List.of(reservation));
 

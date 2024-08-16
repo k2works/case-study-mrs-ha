@@ -24,7 +24,7 @@ public class ReservationService {
 
     public Reservation reserve(Reservation reservation) {
         ReservableRoomId reservableRoomId = reservation.getReservableRoom().getReservableRoomId();
-        ReservableRoom reservable = reservableRoomRepository.findById(reservableRoomId).orElse(null);
+        ReservableRoom reservable = reservableRoomRepository.findOneForUpdateByReservableRoomId(reservableRoomId);
         if (reservable == null) {
             throw new UnavailableReservationException("入力の日付・部屋の組合わせは予約できません。");
         }
