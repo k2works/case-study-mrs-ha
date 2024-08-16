@@ -1,7 +1,9 @@
 package mrs.domain.service.room;
 
+import mrs.domain.model.MeetingRoom;
 import mrs.domain.model.ReservableRoom;
 import mrs.domain.model.ReservableRoomId;
+import mrs.domain.repository.room.MeetingRoomRepository;
 import mrs.domain.repository.room.ReservableRoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,9 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -24,6 +26,8 @@ public class RoomServiceTest {
 
     @Mock
     private ReservableRoomRepository reservableRoomRepository;
+    @Mock
+    private MeetingRoomRepository meetingRoomRepository;
 
     @InjectMocks
     private RoomService roomService;
@@ -45,5 +49,30 @@ public class RoomServiceTest {
         assertEquals(1, reservableRooms.size(), "The size of the returned list should be 1");
         assertEquals(1, reservableRooms.get(0).getReservableRoomId().getRoomId(), "The roomId should be 1");
         assertEquals(date, reservableRooms.get(0).getReservableRoomId().getReservedDate(), "Reserved date should be equal");
+    }
+
+    @Test
+    @DisplayName("会議室が見つかる時")
+    public void testFindMeetingRoom_Found() {
+        Integer roomId = 1;
+        MeetingRoom expectedMeetingRoom = new MeetingRoom();
+        expectedMeetingRoom.setRoomId(roomId);
+        when(meetingRoomRepository.findById(roomId)).thenReturn(Optional.of(expectedMeetingRoom));
+
+        MeetingRoom meetingRoom = roomService.findMeetingRoom(roomId);
+        assertNotNull(meetingRoom, "Returned meeting room should not be null");
+        assertEquals(roomId, meetingRoom.getRoomId(), "Returned room id should be 1");
+    }
+
+    @Test
+    @DisplayName("会議室が見つからない時")
+    public void testFindMeetingRoom_NotFound() {
+        Integer roomId = 1;
+        when(meetingRoomRepository.findById(roomId)).thenReturn(Optional.empty());
+
+        Throwable exception = assertThrows(IllegalStateException.class, () -> {
+            roomService.findMeetingRoom(roomId);
+        });
+        assertEquals("会議室が見つかりません。", exception.getMessage());
     }
 }
