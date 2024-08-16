@@ -2,6 +2,7 @@ package mrs.app.reservation;
 
 import mrs.domain.model.*;
 import mrs.domain.service.reservation.ReservationService;
+import mrs.domain.service.reservation.UnavailableReservationException;
 import mrs.domain.service.room.RoomService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,10 +15,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ReservationsController.class)
 public class ReservationsControllerTest {
@@ -56,5 +60,89 @@ public class ReservationsControllerTest {
                 .andExpect(model().attribute("room", meetingRoom))
                 .andExpect(model().attribute("reservations", List.of(reservation)))
                 .andExpect(model().attributeExists("user"));
+    }
+
+    @Test
+    @DisplayName("BindResultにエラーがある場合、エラー付きでreserveFormを返すことをテスト")
+    public void testReserve_BindResultHasErrors() throws Exception {
+        Integer roomId = 1;
+        LocalDate date = LocalDate.of(2022, 2, 22);
+        MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
+        ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
+        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
+        ReservationForm form = new ReservationForm();
+        form.setStartTime(null);
+        form.setEndTime(LocalTime.of(10, 0));
+        given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
+        mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
+                        .flashAttr("reservationForm", form))
+                .andExpect(status().isOk())
+                .andExpect(view().name("reservation/reserveForm"));
+    }
+
+    @Test
+    @DisplayName("予約中に例外が発生した場合に、エラーメッセージ付きでreserveFormを返すことをテスト")
+    public void testReserve_ThrowsExceptionDuringReservation() throws Exception {
+        Integer roomId = 1;
+        LocalDate date = LocalDate.of(2022, 2, 22);
+        MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
+        ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
+        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
+        ReservationForm form = new ReservationForm();
+        form.setStartTime(LocalTime.of(9, 0));
+        form.setEndTime(LocalTime.of(10, 0));
+        doThrow(new UnavailableReservationException("nothing")).when(reservationService).reserve(any(Reservation.class));
+        given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
+        mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
+                        .flashAttr("reservationForm", form))
+                .andExpect(status().isOk())
+                .andExpect(view().name("reservation/reserveForm"))
+                .andExpect(model().attributeExists("error"));
+    }
+
+    @Test
+    @DisplayName("エラーや例外が発生しない場合に、/reservations/{date}/{roomId}にリダイレクトすることをテスト")
+    public void testReserve_NoErrorsOrExceptions() throws Exception {
+        Integer roomId = 1;
+        LocalDate date = LocalDate.of(2022, 2, 22);
+        MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
+        ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
+        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
+        ReservationForm form = new ReservationForm();
+        form.setStartTime(LocalTime.of(9, 0));
+        form.setEndTime(LocalTime.of(10, 0));
+        mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
+                        .flashAttr("reservationForm", form))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/reservations/" + date + "/" + roomId));
+    }
+
+    @Test
+    @DisplayName("存在しない予約をキャンセルしようとした場合、エラーメッセージと共にフォームが再読み込みされるべきである")
+    public void testCancel_NonExistentReservation() throws Exception {
+        Integer roomId = 1;
+        Integer reservationId = 1;
+        LocalDate date = LocalDate.of(2022, 2, 22);
+        String errorMessage = "Reservation does not exist.";
+        doThrow(new IllegalStateException(errorMessage)).when(reservationService).cancel(eq(reservationId), any(User.class));
+        MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
+        given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
+        this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId).param("cancel", "")
+                        .param("reservationId", String.valueOf(reservationId)))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("error"))
+                .andExpect(model().attribute("error", errorMessage));
+    }
+
+    @Test
+    @DisplayName("予約のキャンセルが成功した場合、ページは更新された予約一覧にリダイレクトされるべきである")
+    public void testCancel_SuccessfulCancellation() throws Exception {
+        Integer roomId = 1;
+        Integer reservationId = 1;
+        LocalDate date = LocalDate.of(2022, 2, 22);
+        this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId).param("cancel", "")
+                        .param("reservationId", String.valueOf(reservationId)))
+                .andExpect(status().isFound())
+                .andExpect(redirectedUrl("/reservations/" + date + "/" + roomId));
     }
 }

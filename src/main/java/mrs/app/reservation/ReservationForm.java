@@ -9,9 +9,11 @@ import java.time.LocalTime;
 @Data
 public class ReservationForm {
     @NotNull(message = "必須です")
+    @ThirtyMinutesUnit(message = "30分単位で入力してください")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime startTime;
     @NotNull(message = "必須です")
+    @ThirtyMinutesUnit(message = "30分単位で入力してください")
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime endTime;
 }
