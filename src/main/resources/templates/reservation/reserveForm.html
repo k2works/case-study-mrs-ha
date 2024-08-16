@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|${#temporals.format(date, 'yyyy/M/d')}の会議室|">2016/5/20の会議室</title>
+</head>
+<body>
+
+<div>
+    <a th:href="@{'/rooms/' + ${date}}">会議室一覧へ</a>
+</div>
+
+<p style="color: red" th:if="${error != null}" th:text="${error}"></p>
+
+<form method="post"
+      th:action="@{'/reservations/' + ${date} + '/' + ${roomId}}" th:object="${reservationForm}">
+    会議室: <span th:text="${room.roomName}">豊洲</span>
+    <br/>
+    予約者名: <span th:text="${user.lastName + ' ' + user.firstName}">山田 太郎</span>
+    <br/>
+    日付: <span th:text="${#temporals.format(date, 'yyyy/M/d')}">2016/5/20</span>
+    <br/>
+    時間帯:
+    <select th:field="*{startTime}">
+        <option th:each="time : ${timeList}" th:text="${time}" th:value="${time}">09:00</option>
+    </select>
+    <span style="color:red" th:error="*{startTime}" th:if="${#fields.hasErrors('startTime')}">error</span>
+    -
+    <select th:field="*{endTime}">
+        <option th:each="time : ${timeList}" th:text="${time}" th:value="${time}">10:00</option>
+    </select>
+    <span style="color:red" th:error="*{endTime}" th:if="${#fields.hasErrors('endTime')}">error</span>
+    <br/>
+    <button>予約</button>
+</form>
+
+<table>
+    <tr>
+        <th>時間帯</th>
+        <th>予約者</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="reservation : ${reservations}">
+        <td>
+            <span th:text="${reservation.startTime}"/>
+            -
+            <span th:text="${reservation.endTime}"/>
+        </td>
+        <td>
+            <span th:text="${reservation.user.lastName}"/>
+            <span th:text="${reservation.user.firstName}"/>
+        </td>
+        <td>
+            <form method="post" th:action="@{'/reservations/' + ${date} + '/' + ${roomId}}"
+                  th:if="${user.userId == reservation.user.userId}">
+                <input name="reservationId" th:value="${reservation.reservationId}" type="hidden"/>
+                <input name="cancel" type="submit" value="取消">
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
