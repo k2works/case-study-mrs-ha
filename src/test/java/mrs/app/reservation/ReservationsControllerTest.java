@@ -187,14 +187,14 @@ public class ReservationsControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "user", roles = "USER")  // この行を追加
+    @WithMockUser(username = "taro-yamada", roles = "USER")  // この行を追加
     @DisplayName("権限のない予約をキャンセルしようとした場合、エラーメッセージと共にフォームが再読み込みされるべきである")
-    public void testCancel_NonExistentReservation() throws Exception {
+    public void testCancel_NonExistentReservation_() throws Exception {
         Integer roomId = 1;
         Integer reservationId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
         String errorMessage = "要求されたキャンセルは許可できません。";
-        doThrow(new AccessDeniedException(errorMessage)).when(reservationService).cancel(eq(reservationId), any(User.class));
+        doThrow(new AccessDeniedException(errorMessage)).when(reservationService).findOne(eq(reservationId));
         MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
@@ -219,7 +219,7 @@ public class ReservationsControllerTest {
     @Test
     @WithMockUser(username = "user", roles = "USER")  // この行を追加
     @DisplayName("予約のキャンセルが成功した場合、ページは更新された予約一覧にリダイレクトされるべきである")
-    public void testCancel_SuccessfulCancellation() throws Exception {
+    public void testCancel_SuccessfulCancellation_() throws Exception {
         Integer roomId = 1;
         Integer reservationId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);

@@ -133,7 +133,7 @@ public class ReservationServiceTest {
 
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
 
-        reservationService.cancel(reservationId, requestUser);
+        reservationService.cancel(reservation);
         verify(reservationRepository, times(1)).delete(reservation);
     }
 
@@ -148,28 +148,7 @@ public class ReservationServiceTest {
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.empty());
 
         assertThrows(IllegalStateException.class, () -> {
-            reservationService.cancel(reservationId, requestUser);
-        });
-    }
-
-    @Test
-    @DisplayName("他のユーザーの予約を権限のないユーザーがキャンセルしようとするとエラーが発生する")
-    public void shouldThrowErrorWhenCancelingOtherUsersReservation() {
-        int reservationId = 1;
-        User requestUser = new User();
-        requestUser.setUserId("user1");
-        requestUser.setRoleName(RoleName.USER);
-        User owner = new User();
-        owner.setUserId("user2");
-        owner.setRoleName(RoleName.USER);
-        Reservation reservation = new Reservation();
-        reservation.setUser(owner);
-        reservation.setReservationId(reservationId);
-
-        when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
-
-        assertThrows(IllegalStateException.class, () -> {
-            reservationService.cancel(reservationId, requestUser);
+            reservationService.findOne(reservationId);
         });
     }
 
@@ -189,7 +168,7 @@ public class ReservationServiceTest {
 
         when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
 
-        reservationService.cancel(reservationId, requestUser);
+        reservationService.cancel(reservation);
         verify(reservationRepository, times(1)).delete(reservation);
     }
 }

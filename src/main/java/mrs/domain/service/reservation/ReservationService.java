@@ -1,15 +1,17 @@
 package mrs.domain.service.reservation;
 
-import mrs.domain.model.*;
+import mrs.domain.model.ReservableRoom;
+import mrs.domain.model.ReservableRoomId;
+import mrs.domain.model.Reservation;
 import mrs.domain.repository.reservation.ReservationRepository;
 import mrs.domain.repository.room.ReservableRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -39,14 +41,16 @@ public class ReservationService {
         return reservation;
     }
 
-    public void cancel(Integer reservationId, User requestUser) {
+    @PreAuthorize("hasRole('ADMIN') or #reservation.user.userId == principal.user.userId")
+    public void cancel(@P("reservation") Reservation reservation) {
+        reservationRepository.delete(reservation);
+    }
+
+    public Reservation findOne(Integer reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
         if (reservation == null) {
             throw new IllegalStateException("予約が見つかりません。");
         }
-        if (RoleName.ADMIN != requestUser.getRoleName() && !Objects.equals(reservation.getUser().getUserId(), requestUser.getUserId())) {
-            throw new AccessDeniedException("要求されたキャンセルは許可できません。");
-        }
-        reservationRepository.delete(reservation);
+        return reservation;
     }
 }
