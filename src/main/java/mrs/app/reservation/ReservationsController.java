@@ -25,6 +25,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 
+/**
+ * 会議室予約画面
+ */
 @Controller
 @RequestMapping("reservations/{date}/{roomId}")
 public class ReservationsController {
@@ -41,6 +44,9 @@ public class ReservationsController {
         return form;
     }
 
+    /**
+     * 指定した会議室の予約画面
+     */
     @RequestMapping(method = RequestMethod.GET)
     String reserveForm(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, @PathVariable("roomId") Integer roomId, Model model) {
         MeetingRoom meetingRoom = roomService.findMeetingRoom(roomId);
@@ -55,6 +61,9 @@ public class ReservationsController {
         return "reservation/reserveForm";
     }
 
+    /**
+     * 指定した会議室の予約処理
+     */
     @RequestMapping(method = RequestMethod.POST)
     String reserve(@Validated ReservationForm form, BindingResult bindingResult, @AuthenticationPrincipal ReservationUserDetails userDetails, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, @PathVariable("roomId") Integer roomId, Model model) {
         if (bindingResult.hasErrors()) {
@@ -78,6 +87,9 @@ public class ReservationsController {
         return "redirect:/reservations/{date}/{roomId}";
     }
 
+    /**
+     * 指定した会議室の予約取消処理
+     */
     @RequestMapping(method = RequestMethod.POST, params = "cancel")
     String cancel(@RequestParam("reservationId") Integer reservationId, @PathVariable("roomId") Integer roomId, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
         try {

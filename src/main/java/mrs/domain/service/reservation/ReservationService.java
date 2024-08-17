@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * 会議室予約サービス
+ */
 @Service
 @Transactional
 public class ReservationService {
@@ -21,10 +24,16 @@ public class ReservationService {
     @Autowired
     ReservableRoomRepository reservableRoomRepository;
 
+    /**
+     * 予約一覧を取得する
+     */
     public List<Reservation> findReservations(ReservableRoomId reservableRoomId) {
         return reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId);
     }
 
+    /**
+     * 予約を行う
+     */
     public Reservation reserve(Reservation reservation) {
         ReservableRoomId reservableRoomId = reservation.getReservableRoom().getReservableRoomId();
         ReservableRoom reservable = reservableRoomRepository.findOneForUpdateByReservableRoomId(reservableRoomId);
@@ -41,11 +50,17 @@ public class ReservationService {
         return reservation;
     }
 
+    /**
+     * 予約を取消す
+     */
     @PreAuthorize("hasRole('ADMIN') or #reservation.user.userId == principal.user.userId")
     public void cancel(@P("reservation") Reservation reservation) {
         reservationRepository.delete(reservation);
     }
 
+    /**
+     * 予約情報を取得する
+     */
     public Reservation findOne(Integer reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
         if (reservation == null) {

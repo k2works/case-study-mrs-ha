@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 特定の日に予約可能な会議室
+ */
 @Entity
 @Data
 @AllArgsConstructor

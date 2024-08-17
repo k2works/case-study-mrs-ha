@@ -9,6 +9,9 @@ import lombok.Value;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * 予約可能な会議室のID
+ */
 @Getter
 @Value
 @AllArgsConstructor

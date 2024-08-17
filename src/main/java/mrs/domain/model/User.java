@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * ユーザー
+ */
 @Entity
 @Table(name = "usr")
 @Data

@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Objects;
 
+/**
+ * 予約情報
+ */
 @Entity
 @Data
 @AllArgsConstructor

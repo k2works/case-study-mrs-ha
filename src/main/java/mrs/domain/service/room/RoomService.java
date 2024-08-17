@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * 会議室サービス
+ */
 @Service
 @Transactional
 public class RoomService {
@@ -19,6 +22,9 @@ public class RoomService {
     @Autowired
     MeetingRoomRepository meetingRoomRepository;
 
+    /**
+     * 会議室を取得する
+     */
     public MeetingRoom findMeetingRoom(Integer roomId) {
         MeetingRoom meetingRoom = meetingRoomRepository.findById(roomId).orElse(null);
         if (meetingRoom == null) {
@@ -27,6 +33,9 @@ public class RoomService {
         return meetingRoom;
     }
 
+    /**
+     * 予約可能会議室を取得する
+     */
     public List<ReservableRoom> findReservableRooms(LocalDate date) {
         return reservableRoomRepository.findByReservableRoomId_reservedDateOrderByReservableRoomId_roomIdAsc(date);
     }
