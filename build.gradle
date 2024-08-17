@@ -32,6 +32,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     developmentOnly "org.springframework.boot:spring-boot-devtools"
+    runtimeOnly "org.flywaydb:flyway-core"
+    runtimeOnly group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '10.17.1'
 }
 
 tasks.named('test') {
