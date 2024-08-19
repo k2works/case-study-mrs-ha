@@ -2,11 +2,12 @@ package mrs.infrastructure.out.persistence.room;
 
 import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.MeetingRoom;
+import mrs.application.port.out.MeetingRoomPort;
 import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class MeetingRoomPersistenceAdapter {
+public class MeetingMeetingRoomPersistenceAdapter implements MeetingRoomPort {
     private final MeetingRoomRepository meetingRoomRepository;
     private final MeetingRoomMapper meetingRoomMapper;
 

@@ -3,6 +3,7 @@ package mrs.infrastructure.out.persistence.reservation;
 import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.ReservableRoomId;
 import mrs.application.domain.model.Reservation;
+import mrs.application.port.out.ReservationPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Objects;
 
 @Repository
 @RequiredArgsConstructor
-public class ReservationPersistenceAdapter {
+public class ReservationPersistenceAdapter implements ReservationPort {
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
 

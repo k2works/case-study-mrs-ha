@@ -4,7 +4,7 @@ import mrs.application.domain.model.MeetingRoom;
 import mrs.application.domain.model.ReservableRoom;
 import mrs.application.domain.model.ReservableRoomId;
 import mrs.infrastructure.out.persistence.reservation.ReservableRoomPersistenceAdapter;
-import mrs.infrastructure.out.persistence.room.MeetingRoomPersistenceAdapter;
+import mrs.infrastructure.out.persistence.room.MeetingMeetingRoomPersistenceAdapter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ public class RoomServiceTest {
     @Mock
     private ReservableRoomPersistenceAdapter reservableRoomRepository;
     @Mock
-    private MeetingRoomPersistenceAdapter meetingRoomRepository;
+    private MeetingMeetingRoomPersistenceAdapter meetingRoomRepository;
 
     @InjectMocks
     private RoomService roomService;

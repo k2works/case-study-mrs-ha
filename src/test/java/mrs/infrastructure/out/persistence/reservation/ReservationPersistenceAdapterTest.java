@@ -1,8 +1,8 @@
 package mrs.infrastructure.out.persistence.reservation;
 
 import mrs.application.domain.model.*;
+import mrs.infrastructure.out.persistence.room.MeetingMeetingRoomPersistenceAdapter;
 import mrs.infrastructure.out.persistence.room.MeetingRoomMapper;
-import mrs.infrastructure.out.persistence.room.MeetingRoomPersistenceAdapter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,12 +18,12 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@Import({ReservationPersistenceAdapter.class, ReservationMapper.class, ReservableRoomPersistenceAdapter.class, ReservableRoomMapper.class, MeetingRoomPersistenceAdapter.class, MeetingRoomMapper.class})
+@Import({ReservationPersistenceAdapter.class, ReservationMapper.class, ReservableRoomPersistenceAdapter.class, ReservableRoomMapper.class, MeetingMeetingRoomPersistenceAdapter.class, MeetingRoomMapper.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ReservationPersistenceAdapterTest {
 
     @Autowired
-    MeetingRoomPersistenceAdapter meetingRoomRepository;
+    MeetingMeetingRoomPersistenceAdapter meetingRoomRepository;
     @Autowired
     ReservableRoomPersistenceAdapter reservableRoomRepository;
     @Autowired
