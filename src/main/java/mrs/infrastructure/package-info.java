@@ -1,4 +1,4 @@
 /**
- * インフラストラクチャ層
+ * インフラストラクチャ
  */
 package mrs.infrastructure;
