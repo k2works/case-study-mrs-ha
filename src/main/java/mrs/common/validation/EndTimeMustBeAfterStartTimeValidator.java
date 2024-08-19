@@ -1,7 +1,8 @@
-package mrs.infrastructure.in.web.reservation;
+package mrs.common.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import mrs.infrastructure.in.web.reservation.ReservationForm;
 
 public class EndTimeMustBeAfterStartTimeValidator implements ConstraintValidator<EndTimeMustBeAfterStartTime, ReservationForm> {
     private String message;

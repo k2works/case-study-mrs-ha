@@ -1,4 +1,4 @@
-package mrs.infrastructure.in.web.reservation;
+package mrs.common.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

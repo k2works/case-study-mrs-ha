@@ -2,6 +2,7 @@ package mrs.infrastructure.in.web.reservation;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import mrs.common.validation.ThirtyMinutesUnit;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalTime;
