@@ -1,8 +1,6 @@
-package mrs.infrastructure.repository.room;
+package mrs.infrastructure.persistence;
 
 import jakarta.persistence.LockModeType;
-import mrs.infrastructure.persistence.ReservableRoomIdJpaEntity;
-import mrs.infrastructure.persistence.ReservableRoomJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 

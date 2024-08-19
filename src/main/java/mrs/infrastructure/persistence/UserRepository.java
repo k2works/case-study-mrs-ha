@@ -1,6 +1,5 @@
-package mrs.infrastructure.repository.user;
+package mrs.infrastructure.persistence;
 
-import mrs.infrastructure.persistence.UserJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserJpaEntity, String> {

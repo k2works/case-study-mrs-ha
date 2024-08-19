@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,6 +16,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@Import({ReservationPersistenceAdapter.class, ReservationMapper.class, ReservableRoomPersistenceAdapter.class, ReservableRoomMapper.class, MeetingRoomPersistenceAdapter.class, MeetingRoomMapper.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ReservationPersistenceAdapterTest {
 
@@ -23,7 +25,7 @@ public class ReservationPersistenceAdapterTest {
     @Autowired
     ReservableRoomPersistenceAdapter reservableRoomRepository;
     @Autowired
-    private ReservationPersistenceAdapter reservationRepository;
+    ReservationPersistenceAdapter reservationRepository;
 
     @BeforeEach
     void setUp() {
@@ -46,8 +48,8 @@ public class ReservationPersistenceAdapterTest {
         List<ReservableRoom> rooms = reservableRoomRepository.findByReservableRoomId_reservedDateOrderByReservableRoomId_roomIdAsc(reservedDate);
         ReservableRoom room = rooms.get(0);
 
-        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
-        Reservation reservation = new Reservation(LocalTime.from(reservedDate.atTime(10, 0)), LocalTime.from(reservedDate.atTime(11, 0)), room, user);
+        User user = new User("taro-yamada", "$2a$10$oxSJl.keBwxmsMLkcT9lPeAIxfNTPNQxpeywMrF7A3kVszwUTqfTK", "太郎", "山田", RoleName.USER);
+        Reservation reservation = new Reservation(1, LocalTime.from(reservedDate.atTime(10, 0)), LocalTime.from(reservedDate.atTime(11, 0)), room, user);
         reservationRepository.save(reservation);
 
         List<Reservation> foundReservations = reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(room.getReservableRoomId());

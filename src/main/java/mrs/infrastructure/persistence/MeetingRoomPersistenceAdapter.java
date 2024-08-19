@@ -2,7 +2,6 @@ package mrs.infrastructure.persistence;
 
 import lombok.RequiredArgsConstructor;
 import mrs.domain.model.MeetingRoom;
-import mrs.infrastructure.repository.room.MeetingRoomRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

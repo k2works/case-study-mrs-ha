@@ -1,7 +1,5 @@
-package mrs.infrastructure.repository.reservation;
+package mrs.infrastructure.persistence;
 
-import mrs.infrastructure.persistence.ReservableRoomIdJpaEntity;
-import mrs.infrastructure.persistence.ReservationJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

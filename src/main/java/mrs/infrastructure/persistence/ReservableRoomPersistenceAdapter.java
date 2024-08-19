@@ -3,7 +3,6 @@ package mrs.infrastructure.persistence;
 import lombok.RequiredArgsConstructor;
 import mrs.domain.model.ReservableRoom;
 import mrs.domain.model.ReservableRoomId;
-import mrs.infrastructure.repository.room.ReservableRoomRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;

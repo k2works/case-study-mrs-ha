@@ -2,7 +2,6 @@ package mrs.infrastructure.persistence;
 
 import lombok.RequiredArgsConstructor;
 import mrs.domain.model.User;
-import mrs.infrastructure.repository.user.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
