@@ -2,7 +2,7 @@ package mrs.service.user;
 
 import mrs.domain.model.RoleName;
 import mrs.domain.model.User;
-import mrs.infrastructure.repository.user.UserRepository;
+import mrs.infrastructure.persistence.UserPersistenceAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,17 +24,12 @@ public class ReservationUserDetailsServiceTest {
     ReservationUserDetailsService service;
 
     @MockBean
-    UserRepository repository;
+    UserPersistenceAdapter repository;
 
     @Test
     @DisplayName("ユーザが存在する場合、ユーザ情報を返す")
     void loadUserByUsername_WhenUserExists_ReturnsUserDetails() {
-        User user = new User();
-        user.setUserId("test");
-        user.setPassword("pass");
-        user.setFirstName("first");
-        user.setLastName("last");
-        user.setRoleName(RoleName.USER);
+        User user = new User("test", "pass", "first", "last", RoleName.USER);
 
         when(repository.findById(anyString())).thenReturn(Optional.of(user));
 

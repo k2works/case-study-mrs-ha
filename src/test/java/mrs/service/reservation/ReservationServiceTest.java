@@ -1,8 +1,8 @@
 package mrs.service.reservation;
 
 import mrs.domain.model.*;
-import mrs.infrastructure.repository.reservation.ReservationRepository;
-import mrs.infrastructure.repository.room.ReservableRoomRepository;
+import mrs.infrastructure.persistence.ReservableRoomPersistenceAdapter;
+import mrs.infrastructure.persistence.ReservationPersistenceAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,10 +27,10 @@ public class ReservationServiceTest {
     private ReservationService reservationService;
 
     @Mock
-    private ReservationRepository reservationRepository;
+    private ReservationPersistenceAdapter reservationRepository;
 
     @Mock
-    private ReservableRoomRepository reservableRoomRepository;
+    private ReservableRoomPersistenceAdapter reservableRoomRepository;
 
     @Test
     @DisplayName("指定した部屋IDの予約情報を取得する")
@@ -65,16 +64,13 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("正常に予約に成功する場合")
     public void shouldSuccessfullyReserve() {
-        Reservation reservation = new Reservation();
         ReservableRoomId reservableRoomId = new ReservableRoomId();
-        ReservableRoom reservableRoom = new ReservableRoom();
-        reservableRoom.setReservableRoomId(reservableRoomId);
-        reservation.setReservableRoom(reservableRoom);
+        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, new MeetingRoom(reservableRoomId.getRoomId(), "会議室1"));
+        Reservation reservation = new Reservation(LocalTime.of(10, 0), LocalTime.of(11, 0), reservableRoom, null);
 
         when(reservableRoomRepository.findOneForUpdateByReservableRoomId(reservableRoomId)).thenReturn(reservableRoom);
         when(reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId))
                 .thenReturn(new ArrayList<>());
-        when(reservationRepository.save(reservation)).thenReturn(reservation);
 
         Reservation actualReservation = reservationService.reserve(reservation);
 
@@ -84,13 +80,11 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("会議室が存在しない場合はエラーが発生する")
     public void shouldThrowErrorWhenRoomDoesNotExist() {
-        Reservation reservation = new Reservation();
         ReservableRoomId reservableRoomId = new ReservableRoomId();
-        ReservableRoom reservableRoom = new ReservableRoom();
-        reservableRoom.setReservableRoomId(reservableRoomId);
-        reservation.setReservableRoom(reservableRoom);
+        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, new MeetingRoom(reservableRoomId.getRoomId(), "会議室1"));
+        Reservation reservation = new Reservation(LocalTime.of(10, 0), LocalTime.of(11, 0), reservableRoom, null);
 
-        when(reservableRoomRepository.findById(reservableRoomId)).thenReturn(Optional.empty());
+        when(reservableRoomRepository.findById(reservableRoomId)).thenReturn(null);
 
         assertThrows(UnavailableReservationException.class, () -> {
             reservationService.reserve(reservation);
@@ -100,17 +94,10 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("他の予約と時間が重複する場合はエラーが発生する")
     public void shouldThrowErrorWhenReservationOverlaps() {
-        Reservation reservation = new Reservation();
         ReservableRoomId reservableRoomId = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
-        MeetingRoom room = new MeetingRoom();
-        room.setRoomId(1);
-        room.setRoomName("会議室1");
-        ReservableRoom reservableRoom = new ReservableRoom();
-        reservableRoom.setReservableRoomId(reservableRoomId);
-        reservableRoom.setMeetingRoom(room);
-        reservation.setStartTime(LocalTime.of(10, 0));
-        reservation.setEndTime(LocalTime.of(11, 0));
-        reservation.setReservableRoom(reservableRoom);
+        MeetingRoom room = new MeetingRoom(1, "会議室1");
+        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, room);
+        Reservation reservation = new Reservation(LocalTime.of(10, 0), LocalTime.of(11, 0), reservableRoom, null);
 
         when(reservableRoomRepository.findOneForUpdateByReservableRoomId(reservableRoomId)).thenReturn(reservableRoom);
         when(reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId))
@@ -125,13 +112,10 @@ public class ReservationServiceTest {
     @DisplayName("正常に予約をキャンセルする場合")
     public void shouldSuccessfullyCancel() {
         int reservationId = 1;
-        User requestUser = new User();
-        requestUser.setUserId("admin");
-        requestUser.setRoleName(RoleName.ADMIN);
-        Reservation reservation = new Reservation();
-        reservation.setReservationId(reservationId);
+        User requestUser = new User("admin", "password", "太郎", "山田", RoleName.ADMIN);
+        Reservation reservation = new Reservation(reservationId, LocalTime.of(10, 0), LocalTime.of(11, 0), null, requestUser);
 
-        when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
+        when(reservationRepository.findById(reservationId)).thenReturn(reservation);
 
         reservationService.cancel(reservation);
         verify(reservationRepository, times(1)).delete(reservation);
@@ -141,11 +125,9 @@ public class ReservationServiceTest {
     @DisplayName("予約が存在しない場合はエラーが発生する")
     public void shouldThrowErrorWhenReservationDoesNotExist() {
         int reservationId = 1;
-        User requestUser = new User();
-        requestUser.setUserId("admin");
-        requestUser.setRoleName(RoleName.ADMIN);
+        User requestUser = new User("admin", "password", "太郎", "山田", RoleName.ADMIN);
 
-        when(reservationRepository.findById(reservationId)).thenReturn(Optional.empty());
+        when(reservationRepository.findById(reservationId)).thenReturn(null);
 
         assertThrows(IllegalStateException.class, () -> {
             reservationService.findOne(reservationId);
@@ -156,17 +138,10 @@ public class ReservationServiceTest {
     @DisplayName("管理者権限を持つユーザーが他のユーザーの予約をキャンセルする場合")
     public void shouldSuccessfullyCancelOtherUsersReservation() {
         int reservationId = 1;
-        User requestUser = new User();
-        requestUser.setUserId("admin");
-        requestUser.setRoleName(RoleName.ADMIN);
-        User owner = new User();
-        owner.setUserId("user1");
-        owner.setRoleName(RoleName.USER);
-        Reservation reservation = new Reservation();
-        reservation.setUser(owner);
-        reservation.setReservationId(reservationId);
+        User owner = new User("user1", "password", "太郎", "山田", RoleName.USER);
+        Reservation reservation = new Reservation(reservationId, LocalTime.of(10, 0), LocalTime.of(11, 0), null, owner);
 
-        when(reservationRepository.findById(reservationId)).thenReturn(Optional.of(reservation));
+        when(reservationRepository.findById(reservationId)).thenReturn(reservation);
 
         reservationService.cancel(reservation);
         verify(reservationRepository, times(1)).delete(reservation);

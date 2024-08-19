@@ -1,10 +1,12 @@
-package mrs.domain.model;
+package mrs.infrastructure.persistence;
 
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -14,7 +16,8 @@ import java.time.LocalDate;
 @Value
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
-public class ReservableRoomId {
+@Embeddable
+public class ReservableRoomIdJpaEntity implements Serializable {
     Integer roomId;
     LocalDate reservedDate;
 }

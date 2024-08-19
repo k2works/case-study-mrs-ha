@@ -3,8 +3,8 @@ package mrs.service.reservation;
 import mrs.domain.model.ReservableRoom;
 import mrs.domain.model.ReservableRoomId;
 import mrs.domain.model.Reservation;
-import mrs.infrastructure.repository.reservation.ReservationRepository;
-import mrs.infrastructure.repository.room.ReservableRoomRepository;
+import mrs.infrastructure.persistence.ReservableRoomPersistenceAdapter;
+import mrs.infrastructure.persistence.ReservationPersistenceAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
@@ -20,9 +20,9 @@ import java.util.List;
 @Transactional
 public class ReservationService {
     @Autowired
-    ReservationRepository reservationRepository;
+    ReservationPersistenceAdapter reservationRepository;
     @Autowired
-    ReservableRoomRepository reservableRoomRepository;
+    ReservableRoomPersistenceAdapter reservableRoomRepository;
 
     /**
      * 予約一覧を取得する
@@ -62,7 +62,7 @@ public class ReservationService {
      * 予約情報を取得する
      */
     public Reservation findOne(Integer reservationId) {
-        Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
+        Reservation reservation = reservationRepository.findById(reservationId);
         if (reservation == null) {
             throw new IllegalStateException("予約が見つかりません。");
         }

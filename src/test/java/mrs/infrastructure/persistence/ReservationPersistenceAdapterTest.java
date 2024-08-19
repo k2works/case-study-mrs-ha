@@ -1,15 +1,12 @@
-package mrs.infrastructure.repository.reservation;
+package mrs.infrastructure.persistence;
 
 import mrs.domain.model.*;
-import mrs.infrastructure.repository.room.MeetingRoomRepository;
-import mrs.infrastructure.repository.room.ReservableRoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,16 +16,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class ReservationRepositoryTest {
+public class ReservationPersistenceAdapterTest {
 
     @Autowired
-    MeetingRoomRepository meetingRoomRepository;
+    MeetingRoomPersistenceAdapter meetingRoomRepository;
     @Autowired
-    ReservableRoomRepository reservableRoomRepository;
+    ReservableRoomPersistenceAdapter reservableRoomRepository;
     @Autowired
-    private TestEntityManager entityManager;
-    @Autowired
-    private ReservationRepository reservationRepository;
+    private ReservationPersistenceAdapter reservationRepository;
 
     @BeforeEach
     void setUp() {
@@ -36,9 +31,7 @@ public class ReservationRepositoryTest {
 
         ReservableRoomId id1 = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
 
-        MeetingRoom room1 = new MeetingRoom();
-        room1.setRoomId(1);
-        room1.setRoomName("会議室1");
+        MeetingRoom room1 = new MeetingRoom(1, "会議室1");
         meetingRoomRepository.save(room1);
 
         ReservableRoom reservableRoom1 = new ReservableRoom(id1, room1);
@@ -53,17 +46,8 @@ public class ReservationRepositoryTest {
         List<ReservableRoom> rooms = reservableRoomRepository.findByReservableRoomId_reservedDateOrderByReservableRoomId_roomIdAsc(reservedDate);
         ReservableRoom room = rooms.get(0);
 
-        User user = new User();
-        user.setUserId("taro-yamada");
-        user.setFirstName("太郎");
-        user.setLastName("山田");
-        user.setRoleName(RoleName.USER);
-
-        Reservation reservation = new Reservation();
-        reservation.setStartTime(LocalTime.from(reservedDate.atTime(10, 0)));
-        reservation.setEndTime(LocalTime.from(reservedDate.atTime(11, 0)));
-        reservation.setReservableRoom(room);
-        reservation.setUser(user);
+        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
+        Reservation reservation = new Reservation(LocalTime.from(reservedDate.atTime(10, 0)), LocalTime.from(reservedDate.atTime(11, 0)), room, user);
         reservationRepository.save(reservation);
 
         List<Reservation> foundReservations = reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(room.getReservableRoomId());

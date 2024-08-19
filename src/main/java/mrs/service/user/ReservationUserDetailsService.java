@@ -1,7 +1,7 @@
 package mrs.service.user;
 
 import mrs.domain.model.User;
-import mrs.infrastructure.repository.user.UserRepository;
+import mrs.infrastructure.persistence.UserPersistenceAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReservationUserDetailsService implements UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    UserPersistenceAdapter userRepository;
 
     /**
      * ユーザー情報を取得する

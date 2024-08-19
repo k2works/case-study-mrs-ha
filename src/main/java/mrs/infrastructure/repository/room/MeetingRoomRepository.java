@@ -1,7 +1,7 @@
 package mrs.infrastructure.repository.room;
 
-import mrs.domain.model.MeetingRoom;
+import mrs.infrastructure.persistence.MeetingRoomJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MeetingRoomRepository extends JpaRepository<MeetingRoom, Integer> {
+public interface MeetingRoomRepository extends JpaRepository<MeetingRoomJpaEntity, Integer> {
 }

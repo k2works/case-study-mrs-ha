@@ -1,28 +1,24 @@
 package mrs.domain.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
 /**
  * 特定の日に予約可能な会議室
  */
-@Entity
-@Data
+@Value
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class ReservableRoom {
-    @EmbeddedId
-    private ReservableRoomId reservableRoomId;
+    ReservableRoomId reservableRoomId;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id", insertable = false, updatable = false)
-    @MapsId("roomId")
-    private MeetingRoom meetingRoom;
+    MeetingRoom meetingRoom;
 
     public ReservableRoom(ReservableRoomId reservableRoomId) {
         this.reservableRoomId = reservableRoomId;
+        this.meetingRoom = new MeetingRoom(reservableRoomId.getRoomId(), null);
     }
-
 }

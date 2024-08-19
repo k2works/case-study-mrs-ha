@@ -65,11 +65,7 @@ public class ReservationsControllerTest {
         form.setStartTime(LocalTime.of(9, 0));
         form.setEndTime(LocalTime.of(10, 0));
 
-        User user = new User();
-        user.setUserId("taro-yamada");
-        user.setFirstName("太郎");
-        user.setLastName("山田");
-        user.setRoleName(RoleName.USER);
+        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
 
@@ -108,11 +104,7 @@ public class ReservationsControllerTest {
 
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
-        User user = new User();
-        user.setUserId("taro-yamada");
-        user.setFirstName("太郎");
-        user.setLastName("山田");
-        user.setRoleName(RoleName.USER);
+        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
 
@@ -140,11 +132,7 @@ public class ReservationsControllerTest {
         doThrow(new UnavailableReservationException("nothing")).when(reservationService).reserve(any(Reservation.class));
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
-        User user = new User();
-        user.setUserId("taro-yamada");
-        user.setFirstName("太郎");
-        user.setLastName("山田");
-        user.setRoleName(RoleName.USER);
+        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
 
@@ -170,11 +158,7 @@ public class ReservationsControllerTest {
         form.setStartTime(LocalTime.of(9, 0));
         form.setEndTime(LocalTime.of(10, 0));
 
-        User user = new User();
-        user.setUserId("taro-yamada");
-        user.setFirstName("太郎");
-        user.setLastName("山田");
-        user.setRoleName(RoleName.USER);
+        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
 
@@ -198,11 +182,7 @@ public class ReservationsControllerTest {
         MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
-        User user = new User();
-        user.setUserId("taro-yamada");
-        user.setFirstName("太郎");
-        user.setLastName("山田");
-        user.setRoleName(RoleName.USER);
+        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
 
@@ -224,11 +204,7 @@ public class ReservationsControllerTest {
         Integer reservationId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
 
-        User user = new User();
-        user.setUserId("taro-yamada");
-        user.setFirstName("太郎");
-        user.setLastName("山田");
-        user.setRoleName(RoleName.USER);
+        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
 

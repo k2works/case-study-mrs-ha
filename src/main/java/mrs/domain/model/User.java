@@ -1,30 +1,27 @@
 package mrs.domain.model;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import java.io.Serializable;
 
 /**
  * ユーザー
  */
-@Entity
-@Table(name = "usr")
-@Data
+@Value
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class User implements Serializable {
-    @Id
-    private String userId;
+    String userId;
 
-    private String password;
+    String password;
 
-    private String firstName;
+    String firstName;
 
-    private String lastName;
+    String lastName;
 
-    @Enumerated(EnumType.STRING)
-    private RoleName roleName;
+    RoleName roleName;
 }

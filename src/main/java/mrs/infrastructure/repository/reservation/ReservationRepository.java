@@ -1,11 +1,11 @@
 package mrs.infrastructure.repository.reservation;
 
-import mrs.domain.model.ReservableRoomId;
-import mrs.domain.model.Reservation;
+import mrs.infrastructure.persistence.ReservableRoomIdJpaEntity;
+import mrs.infrastructure.persistence.ReservationJpaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
-    List<Reservation> findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(ReservableRoomId reservableRoomId);
+public interface ReservationRepository extends JpaRepository<ReservationJpaEntity, Integer> {
+    List<ReservationJpaEntity> findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(ReservableRoomIdJpaEntity reservableRoomId);
 }

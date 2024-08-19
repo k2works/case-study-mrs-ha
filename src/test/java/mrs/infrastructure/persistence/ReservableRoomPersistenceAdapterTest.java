@@ -1,4 +1,4 @@
-package mrs.infrastructure.repository.room;
+package mrs.infrastructure.persistence;
 
 import mrs.domain.model.MeetingRoom;
 import mrs.domain.model.ReservableRoom;
@@ -17,26 +17,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class ReservableRoomRepositoryTest {
+class ReservableRoomPersistenceAdapterTest {
 
     @Autowired
-    ReservableRoomRepository reservableRoomRepository;
+    ReservableRoomPersistenceAdapter reservableRoomRepository;
 
     @Autowired
-    MeetingRoomRepository meetingRoomRepository;
+    MeetingRoomPersistenceAdapter meetingRoomRepository;
 
     @BeforeEach
     void setUp() {
         reservableRoomRepository.deleteAll();
 
-        MeetingRoom room1 = new MeetingRoom();
-        room1.setRoomId(1);
-        room1.setRoomName("会議室1");
+        MeetingRoom room1 = new MeetingRoom(1, "会議室1");
         meetingRoomRepository.save(room1);
 
-        MeetingRoom room2 = new MeetingRoom();
-        room2.setRoomId(2);
-        room2.setRoomName("会議室2");
+        MeetingRoom room2 = new MeetingRoom(2, "会議室2");
         meetingRoomRepository.save(room2);
 
         ReservableRoomId id1 = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));

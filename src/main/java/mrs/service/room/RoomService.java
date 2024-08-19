@@ -2,8 +2,8 @@ package mrs.service.room;
 
 import mrs.domain.model.MeetingRoom;
 import mrs.domain.model.ReservableRoom;
-import mrs.infrastructure.repository.room.MeetingRoomRepository;
-import mrs.infrastructure.repository.room.ReservableRoomRepository;
+import mrs.infrastructure.persistence.MeetingRoomPersistenceAdapter;
+import mrs.infrastructure.persistence.ReservableRoomPersistenceAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +18,15 @@ import java.util.List;
 @Transactional
 public class RoomService {
     @Autowired
-    ReservableRoomRepository reservableRoomRepository;
+    ReservableRoomPersistenceAdapter reservableRoomRepository;
     @Autowired
-    MeetingRoomRepository meetingRoomRepository;
+    MeetingRoomPersistenceAdapter meetingRoomRepository;
 
     /**
      * 会議室を取得する
      */
     public MeetingRoom findMeetingRoom(Integer roomId) {
-        MeetingRoom meetingRoom = meetingRoomRepository.findById(roomId).orElse(null);
+        MeetingRoom meetingRoom = meetingRoomRepository.findById(roomId);
         if (meetingRoom == null) {
             throw new IllegalStateException("会議室が見つかりません。");
         }

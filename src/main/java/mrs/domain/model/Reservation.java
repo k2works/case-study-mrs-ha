@@ -1,37 +1,39 @@
 package mrs.domain.model;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 
-import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Objects;
 
 /**
  * 予約情報
  */
-@Entity
-@Data
+@Value
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
-public class Reservation implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer reservationId;
+@NoArgsConstructor(force = true)
+public class Reservation {
+    Integer reservationId;
 
-    private LocalTime startTime;
+    LocalTime startTime;
 
-    private LocalTime endTime;
+    LocalTime endTime;
 
-    @ManyToOne
-    @JoinColumns({@JoinColumn(name = "reserved_date"), @JoinColumn(name = "room_id")})
-    private ReservableRoom reservableRoom;
+    ReservableRoom reservableRoom;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    User user;
+
+    public Reservation(@NotNull(message = "必須です") LocalTime startTime, @NotNull(message = "必須です") LocalTime endTime, ReservableRoom reservableRoom, User user) {
+        this.reservationId = null;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.reservableRoom = reservableRoom;
+        this.user = user;
+    }
 
     public boolean overlap(Reservation target) {
         if (!Objects.equals(reservableRoom.getReservableRoomId(), target.reservableRoom.getReservableRoomId())) {
