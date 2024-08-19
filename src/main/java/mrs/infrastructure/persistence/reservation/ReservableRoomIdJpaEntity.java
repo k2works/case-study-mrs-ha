@@ -1,4 +1,4 @@
-package mrs.infrastructure.persistence;
+package mrs.infrastructure.persistence.reservation;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

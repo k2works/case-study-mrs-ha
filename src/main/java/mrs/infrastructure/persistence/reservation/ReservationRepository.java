@@ -1,4 +1,4 @@
-package mrs.infrastructure.persistence;
+package mrs.infrastructure.persistence.reservation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

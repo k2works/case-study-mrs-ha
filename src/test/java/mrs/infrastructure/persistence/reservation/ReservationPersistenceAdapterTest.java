@@ -1,6 +1,8 @@
-package mrs.infrastructure.persistence;
+package mrs.infrastructure.persistence.reservation;
 
 import mrs.domain.model.*;
+import mrs.infrastructure.persistence.room.MeetingRoomMapper;
+import mrs.infrastructure.persistence.room.MeetingRoomPersistenceAdapter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

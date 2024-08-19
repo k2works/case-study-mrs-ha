@@ -1,7 +1,7 @@
 package mrs.service.user;
 
 import mrs.domain.model.User;
-import mrs.infrastructure.persistence.UserPersistenceAdapter;
+import mrs.infrastructure.persistence.user.UserPersistenceAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

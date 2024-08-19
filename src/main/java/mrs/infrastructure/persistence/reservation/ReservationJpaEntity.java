@@ -1,9 +1,10 @@
-package mrs.infrastructure.persistence;
+package mrs.infrastructure.persistence.reservation;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mrs.infrastructure.persistence.user.UserJpaEntity;
 
 import java.io.Serializable;
 import java.time.LocalTime;

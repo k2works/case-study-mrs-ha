@@ -2,8 +2,8 @@ package mrs.service.room;
 
 import mrs.domain.model.MeetingRoom;
 import mrs.domain.model.ReservableRoom;
-import mrs.infrastructure.persistence.MeetingRoomPersistenceAdapter;
-import mrs.infrastructure.persistence.ReservableRoomPersistenceAdapter;
+import mrs.infrastructure.persistence.reservation.ReservableRoomPersistenceAdapter;
+import mrs.infrastructure.persistence.room.MeetingRoomPersistenceAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

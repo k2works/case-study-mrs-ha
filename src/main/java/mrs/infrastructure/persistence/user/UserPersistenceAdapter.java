@@ -1,4 +1,4 @@
-package mrs.infrastructure.persistence;
+package mrs.infrastructure.persistence.user;
 
 import lombok.RequiredArgsConstructor;
 import mrs.domain.model.User;

@@ -1,4 +1,4 @@
-package mrs.infrastructure.persistence;
+package mrs.infrastructure.persistence.room;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

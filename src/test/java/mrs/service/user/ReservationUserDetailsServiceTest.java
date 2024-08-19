@@ -2,7 +2,7 @@ package mrs.service.user;
 
 import mrs.domain.model.RoleName;
 import mrs.domain.model.User;
-import mrs.infrastructure.persistence.UserPersistenceAdapter;
+import mrs.infrastructure.persistence.user.UserPersistenceAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

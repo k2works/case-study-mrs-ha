@@ -1,11 +1,11 @@
-package mrs.infrastructure.persistence;
+package mrs.infrastructure.persistence.user;
 
 import mrs.domain.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    User mapToDomainEntity(UserJpaEntity userJpaEntity) {
+    public User mapToDomainEntity(UserJpaEntity userJpaEntity) {
         return new User(
                 userJpaEntity.getUserId(),
                 userJpaEntity.getPassword(),
@@ -14,7 +14,7 @@ public class UserMapper {
                 userJpaEntity.getRoleName());
     }
 
-    UserJpaEntity mapToJpaEntity(User user) {
+    public UserJpaEntity mapToJpaEntity(User user) {
         return new UserJpaEntity(
                 user.getUserId(),
                 user.getPassword(),

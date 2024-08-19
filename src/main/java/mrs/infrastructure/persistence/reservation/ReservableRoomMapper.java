@@ -1,8 +1,9 @@
-package mrs.infrastructure.persistence;
+package mrs.infrastructure.persistence.reservation;
 
 import mrs.domain.model.MeetingRoom;
 import mrs.domain.model.ReservableRoom;
 import mrs.domain.model.ReservableRoomId;
+import mrs.infrastructure.persistence.room.MeetingRoomJpaEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

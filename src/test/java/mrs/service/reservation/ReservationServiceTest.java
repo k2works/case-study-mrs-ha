@@ -1,8 +1,8 @@
 package mrs.service.reservation;
 
 import mrs.domain.model.*;
-import mrs.infrastructure.persistence.ReservableRoomPersistenceAdapter;
-import mrs.infrastructure.persistence.ReservationPersistenceAdapter;
+import mrs.infrastructure.persistence.reservation.ReservableRoomPersistenceAdapter;
+import mrs.infrastructure.persistence.reservation.ReservationPersistenceAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

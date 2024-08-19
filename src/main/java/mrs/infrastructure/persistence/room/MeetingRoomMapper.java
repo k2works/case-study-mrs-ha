@@ -1,4 +1,4 @@
-package mrs.infrastructure.persistence;
+package mrs.infrastructure.persistence.room;
 
 import mrs.domain.model.MeetingRoom;
 import org.springframework.stereotype.Component;
