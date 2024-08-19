@@ -1,15 +1,15 @@
 package mrs.infrastructure.in.web.reservation;
 
+import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.MeetingRoom;
 import mrs.application.domain.model.ReservableRoom;
 import mrs.application.domain.model.ReservableRoomId;
 import mrs.application.domain.model.Reservation;
+import mrs.application.port.in.ReservationUseCase;
+import mrs.application.port.in.RoomUseCase;
 import mrs.application.service.reservation.AlreadyReservedException;
-import mrs.application.service.reservation.ReservationService;
 import mrs.application.service.reservation.UnavailableReservationException;
-import mrs.application.service.room.RoomService;
 import mrs.application.service.user.ReservationUserDetails;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,11 +30,10 @@ import java.util.stream.Stream;
  */
 @Controller
 @RequestMapping("reservations/{date}/{roomId}")
+@RequiredArgsConstructor
 public class ReservationsController {
-    @Autowired
-    RoomService roomService;
-    @Autowired
-    ReservationService reservationService;
+    private final RoomUseCase roomUseCase;
+    private final ReservationUseCase reservationUseCase;
 
     @ModelAttribute
     ReservationForm setUpForm() {
@@ -49,9 +48,9 @@ public class ReservationsController {
      */
     @RequestMapping(method = RequestMethod.GET)
     String reserveForm(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, @PathVariable("roomId") Integer roomId, Model model) {
-        MeetingRoom meetingRoom = roomService.findMeetingRoom(roomId);
+        MeetingRoom meetingRoom = roomUseCase.findMeetingRoom(roomId);
         ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
-        List<Reservation> reservations = reservationService.findReservations(reservableRoomId);
+        List<Reservation> reservations = reservationUseCase.findReservations(reservableRoomId);
 
         List<LocalTime> timeList = Stream.iterate(LocalTime.of(0, 0), t -> t.plusMinutes(30)).limit(24 * 2).toList();
 
@@ -74,7 +73,7 @@ public class ReservationsController {
         Reservation reservation = new Reservation(form.getStartTime(), form.getEndTime(), reservableRoom, userDetails.getUser());
 
         try {
-            reservationService.reserve(reservation);
+            reservationUseCase.reserve(reservation);
         } catch (UnavailableReservationException | AlreadyReservedException e) {
             model.addAttribute("error", e.getMessage());
             return reserveForm(date, roomId, model);
@@ -89,8 +88,8 @@ public class ReservationsController {
     @RequestMapping(method = RequestMethod.POST, params = "cancel")
     String cancel(@RequestParam("reservationId") Integer reservationId, @PathVariable("roomId") Integer roomId, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
         try {
-            Reservation reservation = reservationService.findOne(reservationId);
-            reservationService.cancel(reservation);
+            Reservation reservation = reservationUseCase.findOne(reservationId);
+            reservationUseCase.cancel(reservation);
         } catch (AccessDeniedException e) {
             model.addAttribute("error", e.getMessage());
             return reserveForm(date, roomId, model);

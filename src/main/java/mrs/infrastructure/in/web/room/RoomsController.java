@@ -1,8 +1,8 @@
 package mrs.infrastructure.in.web.room;
 
+import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.ReservableRoom;
-import mrs.application.service.room.RoomService;
-import org.springframework.beans.factory.annotation.Autowired;
+import mrs.application.port.in.RoomUseCase;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +18,9 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("rooms")
+@RequiredArgsConstructor
 public class RoomsController {
-    @Autowired
-    RoomService roomService;
+    private final RoomUseCase roomUseCase;
 
     /**
      * 今日の予約可能会議室一覧
@@ -28,7 +28,7 @@ public class RoomsController {
     @RequestMapping(method = RequestMethod.GET)
     String listRooms(Model model) {
         LocalDate today = LocalDate.now();
-        List<ReservableRoom> rooms = roomService.findReservableRooms(today);
+        List<ReservableRoom> rooms = roomUseCase.findReservableRooms(today);
         model.addAttribute("date", today);
         model.addAttribute("rooms", rooms);
         return "room/listRooms";
@@ -39,7 +39,7 @@ public class RoomsController {
      */
     @RequestMapping(path = "{date}", method = RequestMethod.GET)
     String listRooms(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
-        List<ReservableRoom> rooms = roomService.findReservableRooms(date);
+        List<ReservableRoom> rooms = roomUseCase.findReservableRooms(date);
         model.addAttribute("rooms", rooms);
         return "room/listRooms";
     }

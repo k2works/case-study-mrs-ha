@@ -3,6 +3,7 @@ package mrs.application.service.room;
 import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.MeetingRoom;
 import mrs.application.domain.model.ReservableRoom;
+import mrs.application.port.in.RoomUseCase;
 import mrs.application.port.out.MeetingRoomPort;
 import mrs.application.port.out.ReservableRoomPort;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class RoomService {
+public class RoomService implements RoomUseCase {
     private final ReservableRoomPort reservableRoomPort;
     private final MeetingRoomPort meetingRoomPort;
 

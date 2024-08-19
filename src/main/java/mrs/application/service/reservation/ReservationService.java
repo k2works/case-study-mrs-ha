@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.ReservableRoom;
 import mrs.application.domain.model.ReservableRoomId;
 import mrs.application.domain.model.Reservation;
+import mrs.application.port.in.ReservationUseCase;
 import mrs.application.port.out.ReservableRoomPort;
 import mrs.application.port.out.ReservationPort;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +20,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ReservationService {
+public class ReservationService implements ReservationUseCase {
     private final ReservableRoomPort reservableRoomPort;
     private final ReservationPort reservationPort;
 
