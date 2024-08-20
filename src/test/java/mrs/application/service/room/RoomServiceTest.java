@@ -47,7 +47,7 @@ public class RoomServiceTest {
         assertNotNull(reservableRooms, "Returned list should not be null");
         assertEquals(1, reservableRooms.size(), "The size of the returned list should be 1");
         assertEquals(1, reservableRooms.get(0).getReservableRoomId().getRoomId().getValue(), "The roomId should be 1");
-        assertEquals(date, reservableRooms.get(0).getReservableRoomId().getReservedDate(), "Reserved date should be equal");
+        assertEquals(date, reservableRooms.get(0).getReservableRoomId().getReservedDate().getValue(), "Reserved date should be equal");
     }
 
     @Test

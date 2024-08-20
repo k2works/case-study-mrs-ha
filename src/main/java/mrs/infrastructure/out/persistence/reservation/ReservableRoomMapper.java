@@ -23,7 +23,7 @@ public class ReservableRoomMapper {
         return new ReservableRoomJpaEntity(
                 new ReservableRoomIdJpaEntity(
                         reservableRoom.getReservableRoomId().getRoomId().getValue(),
-                        reservableRoom.getReservableRoomId().getReservedDate()),
+                        reservableRoom.getReservableRoomId().getReservedDate().getValue()),
                 new MeetingRoomJpaEntity(
                         reservableRoom.getMeetingRoom().getRoomId().getValue(),
                         reservableRoom.getMeetingRoom().getRoomName().getValue()));

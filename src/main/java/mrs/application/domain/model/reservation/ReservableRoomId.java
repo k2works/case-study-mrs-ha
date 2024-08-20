@@ -17,9 +17,9 @@ import java.time.LocalDate;
 @NoArgsConstructor(force = true)
 public class ReservableRoomId {
     RoomId roomId;
-    LocalDate reservedDate;
+    ReservedDate reservedDate;
 
     public static ReservableRoomId of(Integer roomId, LocalDate reservedDate) {
-        return new ReservableRoomId(new RoomId(roomId), reservedDate);
+        return new ReservableRoomId(new RoomId(roomId), new ReservedDate(reservedDate));
     }
 }
