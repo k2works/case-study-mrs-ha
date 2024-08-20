@@ -1,7 +1,7 @@
 package mrs.application.service.room;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.reservation.ReservableRoom;
+import mrs.application.domain.model.reservation.ReservableRoomList;
 import mrs.application.domain.model.reservation.ReservedDate;
 import mrs.application.domain.model.room.MeetingRoom;
 import mrs.application.domain.model.room.RoomId;
@@ -10,8 +10,6 @@ import mrs.application.port.out.MeetingRoomPort;
 import mrs.application.port.out.ReservableRoomPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * 会議室サービス
@@ -38,7 +36,7 @@ public class RoomService implements RoomUseCase {
     /**
      * 予約可能会議室を取得する
      */
-    public List<ReservableRoom> findReservableRooms(ReservedDate date) {
-        return reservableRoomPort.findByReservableRoomId_reservedDateOrderByReservableRoomId_roomIdAsc(date.getValue());
+    public ReservableRoomList findReservableRooms(ReservedDate date) {
+        return ReservableRoomList.of(reservableRoomPort.findByReservableRoomId_reservedDateOrderByReservableRoomId_roomIdAsc(date.getValue()));
     }
 }

@@ -1,7 +1,7 @@
 package mrs.infrastructure.in.web.room;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.reservation.ReservableRoom;
+import mrs.application.domain.model.reservation.ReservableRoomList;
 import mrs.application.domain.model.reservation.ReservedDate;
 import mrs.application.port.in.RoomUseCase;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDate;
-import java.util.List;
 
 /**
  * 会議室一覧表示画面
@@ -29,9 +28,9 @@ public class RoomsController {
     @RequestMapping(method = RequestMethod.GET)
     String listRooms(Model model) {
         LocalDate today = LocalDate.now();
-        List<ReservableRoom> rooms = roomUseCase.findReservableRooms(new ReservedDate(today));
+        ReservableRoomList rooms = roomUseCase.findReservableRooms(new ReservedDate(today));
         model.addAttribute("date", today);
-        model.addAttribute("rooms", rooms);
+        model.addAttribute("rooms", rooms.getValue());
         return "room/listRooms";
     }
 
@@ -40,8 +39,8 @@ public class RoomsController {
      */
     @RequestMapping(path = "{date}", method = RequestMethod.GET)
     String listRooms(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
-        List<ReservableRoom> rooms = roomUseCase.findReservableRooms(new ReservedDate(date));
-        model.addAttribute("rooms", rooms);
+        ReservableRoomList rooms = roomUseCase.findReservableRooms(new ReservedDate(date));
+        model.addAttribute("rooms", rooms.getValue());
         return "room/listRooms";
     }
 }
