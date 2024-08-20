@@ -7,9 +7,9 @@ import mrs.application.domain.model.reservation.Reservation;
 import mrs.application.domain.model.room.MeetingRoom;
 import mrs.application.port.in.ReservationUseCase;
 import mrs.application.port.in.RoomUseCase;
+import mrs.application.service.auth.AuthUserDetails;
 import mrs.application.service.reservation.AlreadyReservedException;
 import mrs.application.service.reservation.UnavailableReservationException;
-import mrs.application.service.user.ReservationUserDetails;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -64,7 +64,7 @@ public class ReservationsController {
      * 指定した会議室の予約処理
      */
     @RequestMapping(method = RequestMethod.POST)
-    String reserve(@Validated ReservationForm form, BindingResult bindingResult, @AuthenticationPrincipal ReservationUserDetails userDetails, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, @PathVariable("roomId") Integer roomId, Model model) {
+    String reserve(@Validated ReservationForm form, BindingResult bindingResult, @AuthenticationPrincipal AuthUserDetails userDetails, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, @PathVariable("roomId") Integer roomId, Model model) {
         if (bindingResult.hasErrors()) {
             return reserveForm(date, roomId, model);
         }

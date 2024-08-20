@@ -6,11 +6,11 @@ import mrs.application.domain.model.reservation.ReservableRoom;
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
 import mrs.application.domain.model.room.MeetingRoom;
+import mrs.application.service.auth.AuthService;
+import mrs.application.service.auth.AuthUserDetails;
 import mrs.application.service.reservation.ReservationService;
 import mrs.application.service.reservation.UnavailableReservationException;
 import mrs.application.service.room.RoomService;
-import mrs.application.service.user.ReservationUserDetails;
-import mrs.application.service.user.ReservationUserDetailsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,7 +48,7 @@ public class ReservationsControllerTest {
     @Autowired
     private WebApplicationContext context;
     @MockBean
-    ReservationUserDetails userDetails;
+    AuthUserDetails userDetails;
 
     @BeforeEach
     void setUp() {
@@ -60,7 +60,7 @@ public class ReservationsControllerTest {
     @MockBean
     ReservationService reservationService;
     @Autowired
-    private ReservationUserDetailsService userDetailsService;
+    private AuthService userDetailsService;
 
     @Test
     @WithMockUser(username = "user", roles = "USER")  // この行を追加

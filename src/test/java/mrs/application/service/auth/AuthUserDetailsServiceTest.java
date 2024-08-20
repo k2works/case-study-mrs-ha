@@ -1,8 +1,8 @@
-package mrs.application.service.user;
+package mrs.application.service.auth;
 
 import mrs.application.domain.model.auth.RoleName;
 import mrs.application.domain.model.auth.User;
-import mrs.infrastructure.out.persistence.user.UserPersistenceAdapter;
+import mrs.infrastructure.out.persistence.auth.UserPersistenceAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,10 +18,10 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class ReservationUserDetailsServiceTest {
+public class AuthUserDetailsServiceTest {
 
     @Autowired
-    ReservationUserDetailsService service;
+    AuthService service;
 
     @MockBean
     UserPersistenceAdapter repository;

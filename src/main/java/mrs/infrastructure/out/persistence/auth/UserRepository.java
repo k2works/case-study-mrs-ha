@@ -1,4 +1,4 @@
-package mrs.infrastructure.out.persistence.user;
+package mrs.infrastructure.out.persistence.auth;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package mrs.infrastructure.in.web.login;
+package mrs.infrastructure.in.web.auth;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

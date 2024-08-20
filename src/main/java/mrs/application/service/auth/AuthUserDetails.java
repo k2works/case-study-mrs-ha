@@ -1,4 +1,4 @@
-package mrs.application.service.user;
+package mrs.application.service.auth;
 
 import lombok.Getter;
 import mrs.application.domain.model.auth.User;
@@ -9,10 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 @Getter
-public class ReservationUserDetails implements UserDetails {
+public class AuthUserDetails implements UserDetails {
     private final User user;
 
-    public ReservationUserDetails(User user) {
+    public AuthUserDetails(User user) {
         this.user = user;
     }
 

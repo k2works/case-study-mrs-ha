@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mrs.infrastructure.out.persistence.user.UserJpaEntity;
+import mrs.infrastructure.out.persistence.auth.UserJpaEntity;
 
 import java.io.Serializable;
 import java.time.LocalTime;

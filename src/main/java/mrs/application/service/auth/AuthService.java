@@ -1,4 +1,4 @@
-package mrs.application.service.user;
+package mrs.application.service.auth;
 
 import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.auth.User;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @RequiredArgsConstructor
-public class ReservationUserDetailsService implements UserDetailsService {
+public class AuthService implements UserDetailsService {
     private final UserPort userPort;
 
     /**
@@ -22,6 +22,6 @@ public class ReservationUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userPort.findById(username).orElseThrow(() -> new UsernameNotFoundException(username + " is not found."));
-        return new ReservationUserDetails(user);
+        return new AuthUserDetails(user);
     }
 }

@@ -1,4 +1,4 @@
-package mrs.infrastructure.in.web.login;
+package mrs.infrastructure.in.web.auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
