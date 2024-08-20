@@ -6,6 +6,7 @@ import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
 import mrs.application.domain.model.reservation.ReservationId;
 import mrs.application.domain.model.room.MeetingRoom;
+import mrs.application.domain.model.room.RoomId;
 import mrs.application.port.in.ReservationUseCase;
 import mrs.application.port.in.RoomUseCase;
 import mrs.application.service.auth.AuthUserDetails;
@@ -49,7 +50,7 @@ public class ReservationsController {
      */
     @RequestMapping(method = RequestMethod.GET)
     String reserveForm(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, @PathVariable("roomId") Integer roomId, Model model) {
-        MeetingRoom meetingRoom = roomUseCase.findMeetingRoom(roomId);
+        MeetingRoom meetingRoom = roomUseCase.findMeetingRoom(new RoomId(roomId));
         ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
         List<Reservation> reservations = reservationUseCase.findReservations(reservableRoomId);
 

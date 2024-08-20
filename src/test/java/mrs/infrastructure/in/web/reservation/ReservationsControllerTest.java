@@ -7,6 +7,7 @@ import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
 import mrs.application.domain.model.reservation.ReservationId;
 import mrs.application.domain.model.room.MeetingRoom;
+import mrs.application.domain.model.room.RoomId;
 import mrs.application.service.auth.AuthService;
 import mrs.application.service.auth.AuthUserDetails;
 import mrs.application.service.reservation.ReservationService;
@@ -79,17 +80,17 @@ public class ReservationsControllerTest {
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
-        Integer roomId = 1;
+        RoomId roomId = new RoomId(1);
         LocalDate date = LocalDate.of(2022, 2, 22);
-        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
-        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId.getValue(), "Room-1");
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId.getValue(), date);
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
         Reservation reservation = Reservation.of(1, form.getStartTime(), form.getEndTime(), reservableRoom, user);
         given(reservationService.findReservations(reservableRoomId)).willReturn(List.of(reservation));
 
-        this.mockMvc.perform(get("/reservations/{date}/{roomId}", date, roomId)
+        this.mockMvc.perform(get("/reservations/{date}/{roomId}", date, roomId.getValue())
                         .with(user(userDetails))
                 )
                 .andExpect(status().isOk())
@@ -103,10 +104,10 @@ public class ReservationsControllerTest {
     @WithMockUser(username = "user", roles = "USER")  // この行を追加
     @DisplayName("BindResultにエラーがある場合、エラー付きでreserveFormを返すことをテスト")
     public void testReserve_BindResultHasErrors() throws Exception {
-        Integer roomId = 1;
+        RoomId roomId = new RoomId(1);
         LocalDate date = LocalDate.of(2022, 2, 22);
-        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
-        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId.getValue(), "Room-1");
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId.getValue(), date);
         ReservationForm form = new ReservationForm();
         form.setStartTime(null);
         form.setEndTime(LocalTime.of(10, 0));
@@ -117,7 +118,7 @@ public class ReservationsControllerTest {
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
-        mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
+        mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId.getValue())
                         .with(user(userDetails))
                         .with(csrf())
                         .flashAttr("reservationForm", form))
@@ -129,10 +130,10 @@ public class ReservationsControllerTest {
     @WithMockUser(username = "user", roles = "USER")  // この行を追加
     @DisplayName("予約中に例外が発生した場合に、エラーメッセージ付きでreserveFormを返すことをテスト")
     public void testReserve_ThrowsExceptionDuringReservation() throws Exception {
-        Integer roomId = 1;
+        RoomId roomId = new RoomId(1);
         LocalDate date = LocalDate.of(2022, 2, 22);
-        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
-        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId.getValue(), "Room-1");
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId.getValue(), date);
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         ReservationForm form = new ReservationForm();
         form.setStartTime(LocalTime.of(9, 0));
@@ -145,7 +146,7 @@ public class ReservationsControllerTest {
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
-        this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
+        this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId.getValue())
                         .with(user(userDetails))
                         .with(csrf())
                         .flashAttr("reservationForm", form))
@@ -158,10 +159,10 @@ public class ReservationsControllerTest {
     @WithMockUser(username = "user", roles = "USER")  // この行を追加
     @DisplayName("エラーや例外が発生しない場合に、/reservations/{date}/{roomId}にリダイレクトすることをテスト")
     public void testReserve_NoErrorsOrExceptions() throws Exception {
-        Integer roomId = 1;
+        RoomId roomId = new RoomId(1);
         LocalDate date = LocalDate.of(2022, 2, 22);
-        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
-        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId.getValue(), "Room-1");
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId.getValue(), date);
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         ReservationForm form = new ReservationForm();
         form.setStartTime(LocalTime.of(9, 0));
@@ -171,31 +172,31 @@ public class ReservationsControllerTest {
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
-        mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
+        mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId.getValue())
                         .with(user(userDetails))
                         .with(csrf())
                         .flashAttr("reservationForm", form))
                 .andExpect(status().isFound())
-                .andExpect(redirectedUrl("/reservations/" + date + "/" + roomId));
+                .andExpect(redirectedUrl("/reservations/" + date + "/" + roomId.getValue()));
     }
 
     @Test
     @WithMockUser(username = "taro-yamada", roles = "USER")  // この行を追加
     @DisplayName("権限のない予約をキャンセルしようとした場合、エラーメッセージと共にフォームが再読み込みされるべきである")
     public void testCancel_NonExistentReservation_() throws Exception {
-        Integer roomId = 1;
+        RoomId roomId = new RoomId(1);
         ReservationId reservationId = new ReservationId(1);
         LocalDate date = LocalDate.of(2022, 2, 22);
         String errorMessage = "要求されたキャンセルは許可できません。";
         doThrow(new AccessDeniedException(errorMessage)).when(reservationService).findOne(eq(reservationId));
-        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId.getValue(), "Room-1");
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
         User user = getUser();
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
-        this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
+        this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId.getValue())
                         .with(user(userDetails))
                         .with(csrf())
                         .param("cancel", "")
@@ -209,7 +210,7 @@ public class ReservationsControllerTest {
     @WithMockUser(username = "user", roles = "USER")  // この行を追加
     @DisplayName("予約のキャンセルが成功した場合、ページは更新された予約一覧にリダイレクトされるべきである")
     public void testCancel_SuccessfulCancellation_() throws Exception {
-        Integer roomId = 1;
+        RoomId roomId = new RoomId(1);
         Integer reservationId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
 
@@ -217,12 +218,12 @@ public class ReservationsControllerTest {
         given(userDetails.getUser()).willReturn(user);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
-        this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
+        this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId.getValue())
                         .with(user(userDetails))
                         .with(csrf())
                         .param("cancel", "")
                         .param("reservationId", String.valueOf(reservationId)))
                 .andExpect(status().isFound())
-                .andExpect(redirectedUrl("/reservations/" + date + "/" + roomId));
+                .andExpect(redirectedUrl("/reservations/" + date + "/" + roomId.getValue()));
     }
 }

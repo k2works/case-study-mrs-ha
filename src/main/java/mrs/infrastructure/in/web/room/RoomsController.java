@@ -2,6 +2,7 @@ package mrs.infrastructure.in.web.room;
 
 import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.reservation.ReservableRoom;
+import mrs.application.domain.model.reservation.ReservedDate;
 import mrs.application.port.in.RoomUseCase;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class RoomsController {
     @RequestMapping(method = RequestMethod.GET)
     String listRooms(Model model) {
         LocalDate today = LocalDate.now();
-        List<ReservableRoom> rooms = roomUseCase.findReservableRooms(today);
+        List<ReservableRoom> rooms = roomUseCase.findReservableRooms(new ReservedDate(today));
         model.addAttribute("date", today);
         model.addAttribute("rooms", rooms);
         return "room/listRooms";
@@ -39,7 +40,7 @@ public class RoomsController {
      */
     @RequestMapping(path = "{date}", method = RequestMethod.GET)
     String listRooms(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
-        List<ReservableRoom> rooms = roomUseCase.findReservableRooms(date);
+        List<ReservableRoom> rooms = roomUseCase.findReservableRooms(new ReservedDate(date));
         model.addAttribute("rooms", rooms);
         return "room/listRooms";
     }
