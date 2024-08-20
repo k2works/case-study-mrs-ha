@@ -39,7 +39,7 @@ public class ReservationPersistenceAdapterTest {
 
         ReservableRoomId id1 = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
 
-        MeetingRoom room1 = new MeetingRoom(1, "会議室1");
+        MeetingRoom room1 = MeetingRoom.of(1, "会議室1");
         meetingRoomRepository.save(room1);
 
         ReservableRoom reservableRoom1 = new ReservableRoom(id1, room1);

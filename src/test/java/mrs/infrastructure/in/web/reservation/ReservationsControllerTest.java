@@ -79,7 +79,7 @@ public class ReservationsControllerTest {
 
         Integer roomId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
-        MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
         ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
@@ -103,7 +103,7 @@ public class ReservationsControllerTest {
     public void testReserve_BindResultHasErrors() throws Exception {
         Integer roomId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
-        MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
         ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
         ReservationForm form = new ReservationForm();
         form.setStartTime(null);
@@ -129,7 +129,7 @@ public class ReservationsControllerTest {
     public void testReserve_ThrowsExceptionDuringReservation() throws Exception {
         Integer roomId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
-        MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
         ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         ReservationForm form = new ReservationForm();
@@ -158,7 +158,7 @@ public class ReservationsControllerTest {
     public void testReserve_NoErrorsOrExceptions() throws Exception {
         Integer roomId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
-        MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
         ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         ReservationForm form = new ReservationForm();
@@ -186,7 +186,7 @@ public class ReservationsControllerTest {
         LocalDate date = LocalDate.of(2022, 2, 22);
         String errorMessage = "要求されたキャンセルは許可できません。";
         doThrow(new AccessDeniedException(errorMessage)).when(reservationService).findOne(eq(reservationId));
-        MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
+        MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
         User user = getUser();

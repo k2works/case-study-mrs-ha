@@ -15,7 +15,7 @@ public class ReservableRoomMapper {
                 new ReservableRoomId(
                         reservableRoomJpaEntity.getReservableRoomId().getRoomId(),
                         reservableRoomJpaEntity.getReservableRoomId().getReservedDate()),
-                new MeetingRoom(reservableRoomJpaEntity.getMeetingRoomJpaEntity().getRoomId(),
+                MeetingRoom.of(reservableRoomJpaEntity.getMeetingRoomJpaEntity().getRoomId(),
                         reservableRoomJpaEntity.getMeetingRoomJpaEntity().getRoomName()));
     }
 
@@ -25,8 +25,8 @@ public class ReservableRoomMapper {
                         reservableRoom.getReservableRoomId().getRoomId(),
                         reservableRoom.getReservableRoomId().getReservedDate()),
                 new MeetingRoomJpaEntity(
-                        reservableRoom.getMeetingRoom().getRoomId(),
-                        reservableRoom.getMeetingRoom().getRoomName()));
+                        reservableRoom.getMeetingRoom().getRoomId().getValue(),
+                        reservableRoom.getMeetingRoom().getRoomName().getValue()));
     }
 
     public List<ReservableRoom> mapToDomainEntityList(List<ReservableRoomJpaEntity> byReservableRoomIdReservedDateOrderByReservableRoomIdRoomIdAsc) {

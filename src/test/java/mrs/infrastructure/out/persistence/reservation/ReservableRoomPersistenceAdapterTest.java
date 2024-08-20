@@ -33,10 +33,10 @@ class ReservableRoomPersistenceAdapterTest {
     void setUp() {
         reservableRoomRepository.deleteAll();
 
-        MeetingRoom room1 = new MeetingRoom(1, "会議室1");
+        MeetingRoom room1 = MeetingRoom.of(1, "会議室1");
         meetingRoomRepository.save(room1);
 
-        MeetingRoom room2 = new MeetingRoom(2, "会議室2");
+        MeetingRoom room2 = MeetingRoom.of(2, "会議室2");
         meetingRoomRepository.save(room2);
 
         ReservableRoomId id1 = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));

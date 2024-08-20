@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MeetingRoomMapper {
     MeetingRoom mapToDomainEntity(MeetingRoomJpaEntity meetingRoomJpaEntity) {
-        return new MeetingRoom(meetingRoomJpaEntity.getRoomId(), meetingRoomJpaEntity.getRoomName());
+        return MeetingRoom.of(meetingRoomJpaEntity.getRoomId(), meetingRoomJpaEntity.getRoomName());
     }
 
     MeetingRoomJpaEntity mapToJpaEntity(MeetingRoom meetingRoom) {
-        return new MeetingRoomJpaEntity(meetingRoom.getRoomId(), meetingRoom.getRoomName());
+        return new MeetingRoomJpaEntity(meetingRoom.getRoomId().getValue(), meetingRoom.getRoomName().getValue());
     }
 }

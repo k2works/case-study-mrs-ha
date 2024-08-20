@@ -54,12 +54,12 @@ public class RoomServiceTest {
     @DisplayName("会議室が見つかる時")
     public void testFindMeetingRoom_Found() {
         Integer roomId = 1;
-        MeetingRoom expectedMeetingRoom = new MeetingRoom(roomId, "会議室1");
+        MeetingRoom expectedMeetingRoom = MeetingRoom.of(roomId, "会議室1");
         when(meetingRoomRepository.findById(roomId)).thenReturn(expectedMeetingRoom);
 
         MeetingRoom meetingRoom = roomService.findMeetingRoom(roomId);
         assertNotNull(meetingRoom, "Returned meeting room should not be null");
-        assertEquals(roomId, meetingRoom.getRoomId(), "Returned room id should be 1");
+        assertEquals(roomId, meetingRoom.getRoomId().getValue(), "Returned room id should be 1");
     }
 
     @Test

@@ -11,7 +11,11 @@ import lombok.Value;
 @Getter
 @AllArgsConstructor
 public class MeetingRoom {
-    Integer roomId;
+    RoomId roomId;
 
-    String roomName;
+    RoomName roomName;
+
+    public static MeetingRoom of(Integer roomId, String roomName) {
+        return new MeetingRoom(new RoomId(roomId), new RoomName(roomName));
+    }
 }
