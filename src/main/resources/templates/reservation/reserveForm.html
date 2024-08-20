@@ -16,7 +16,7 @@
 
 <form method="post"
       th:action="@{'/reservations/' + ${date} + '/' + ${roomId}}" th:object="${reservationForm}">
-    会議室: <span th:text="${room.roomName}">豊洲</span>
+    会議室: <span th:text="${room.roomName.value}">豊洲</span>
     <br/>
     予約者名: <span th:text="${user.name.lastName + ' ' + user.name.firstName}">山田 太郎</span>
     <br/>
@@ -44,9 +44,9 @@
     </tr>
     <tr th:each="reservation : ${reservations}">
         <td>
-            <span th:text="${reservation.startTime}"/>
+            <span th:text="${reservation.reservationTimeSlot.startTime}"/>
             -
-            <span th:text="${reservation.endTime}"/>
+            <span th:text="${reservation.reservationTimeSlot.endTime}"/>
         </td>
         <td>
             <span th:text="${reservation.user.name.lastName}"/>
@@ -55,7 +55,7 @@
         <td>
             <form method="post" th:action="@{'/reservations/' + ${date} + '/' + ${roomId}}"
                   sec:authorize="${hasRole('ADMIN') or #vars.user.userId.value == #vars.reservation.user.userId.value}">
-                <input name="reservationId" th:value="${reservation.reservationId}" type="hidden"/>
+                <input name="reservationId" th:value="${reservation.reservationId.value}" type="hidden"/>
                 <input name="cancel" type="submit" value="取消">
             </form>
         </td>

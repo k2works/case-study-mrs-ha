@@ -55,7 +55,7 @@ public class ReservationPersistenceAdapterTest {
         ReservableRoom room = rooms.get(0);
 
         User user = new User(new UserId("taro-yamada"), new Password("$2a$10$oxSJl.keBwxmsMLkcT9lPeAIxfNTPNQxpeywMrF7A3kVszwUTqfTK"), new Name("太郎", "山田"), RoleName.USER);
-        Reservation reservation = new Reservation(1, LocalTime.from(reservedDate.atTime(10, 0)), LocalTime.from(reservedDate.atTime(11, 0)), room, user);
+        Reservation reservation = Reservation.of(1, LocalTime.from(reservedDate.atTime(10, 0)), LocalTime.from(reservedDate.atTime(11, 0)), room, user);
         reservationRepository.save(reservation);
 
         List<Reservation> foundReservations = reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(room.getReservableRoomId());

@@ -84,7 +84,7 @@ public class ReservationsControllerTest {
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
-        Reservation reservation = new Reservation(1, form.getStartTime(), form.getEndTime(), reservableRoom, user);
+        Reservation reservation = Reservation.of(1, form.getStartTime(), form.getEndTime(), reservableRoom, user);
         given(reservationService.findReservations(reservableRoomId)).willReturn(List.of(reservation));
 
         this.mockMvc.perform(get("/reservations/{date}/{roomId}", date, roomId)

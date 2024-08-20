@@ -117,7 +117,7 @@ public class ReservationServiceTest {
     public void shouldSuccessfullyCancel() {
         int reservationId = 1;
         User requestUser = new User(new UserId("admin"), new Password("password"), new Name("太郎", "山田"), RoleName.ADMIN);
-        Reservation reservation = new Reservation(reservationId, LocalTime.of(10, 0), LocalTime.of(11, 0), null, requestUser);
+        Reservation reservation = Reservation.of(reservationId, LocalTime.of(10, 0), LocalTime.of(11, 0), null, requestUser);
 
         when(reservationRepository.findById(reservationId)).thenReturn(reservation);
 
@@ -142,7 +142,7 @@ public class ReservationServiceTest {
     public void shouldSuccessfullyCancelOtherUsersReservation() {
         int reservationId = 1;
         User owner = new User(new UserId("user1"), new Password("password"), new Name("太郎", "山田"), RoleName.USER);
-        Reservation reservation = new Reservation(reservationId, LocalTime.of(10, 0), LocalTime.of(11, 0), null, owner);
+        Reservation reservation = Reservation.of(reservationId, LocalTime.of(10, 0), LocalTime.of(11, 0), null, owner);
 
         when(reservationRepository.findById(reservationId)).thenReturn(reservation);
 

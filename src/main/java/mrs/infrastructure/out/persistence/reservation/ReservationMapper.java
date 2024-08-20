@@ -1,15 +1,17 @@
 package mrs.infrastructure.out.persistence.reservation;
 
 import mrs.application.domain.model.reservation.Reservation;
+import mrs.application.domain.model.reservation.ReservationId;
 import mrs.infrastructure.out.persistence.auth.UserMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ReservationMapper {
     Reservation mapToDomainEntity(ReservationJpaEntity reservationJpaEntity) {
-        return new Reservation(
+        return Reservation.of(
                 reservationJpaEntity.getReservationId(),
                 reservationJpaEntity.getStartTime(),
                 reservationJpaEntity.getEndTime(),
@@ -19,9 +21,9 @@ public class ReservationMapper {
 
     ReservationJpaEntity mapToJpaEntity(Reservation reservation) {
         return new ReservationJpaEntity(
-                reservation.getReservationId(),
-                reservation.getStartTime(),
-                reservation.getEndTime(),
+                Optional.ofNullable(reservation.getReservationId()).map(ReservationId::getValue).orElse(null),
+                reservation.getReservationTimeSlot().getStartTime(),
+                reservation.getReservationTimeSlot().getEndTime(),
                 new ReservableRoomMapper().mapToJpaEntity(reservation.getReservableRoom()),
                 new UserMapper().mapToJpaEntity(reservation.getUser()));
     }
