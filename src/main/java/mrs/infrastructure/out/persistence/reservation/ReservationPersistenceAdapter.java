@@ -24,7 +24,7 @@ public class ReservationPersistenceAdapter implements ReservationPort {
     }
 
     public List<Reservation> findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(ReservableRoomId reservableRoomId) {
-        ReservableRoomIdJpaEntity reservableRoomIdJpaEntity = new ReservableRoomIdJpaEntity(reservableRoomId.getRoomId(), reservableRoomId.getReservedDate());
+        ReservableRoomIdJpaEntity reservableRoomIdJpaEntity = new ReservableRoomIdJpaEntity(reservableRoomId.getRoomId().getValue(), reservableRoomId.getReservedDate());
         return reservationMapper.mapToDomainEntities(reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomIdJpaEntity));
     }
 

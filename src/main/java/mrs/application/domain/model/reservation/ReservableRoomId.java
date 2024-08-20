@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Value;
+import mrs.application.domain.model.room.RoomId;
 
 import java.time.LocalDate;
 
@@ -15,6 +16,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 public class ReservableRoomId {
-    Integer roomId;
+    RoomId roomId;
     LocalDate reservedDate;
+
+    public static ReservableRoomId of(Integer roomId, LocalDate reservedDate) {
+        return new ReservableRoomId(new RoomId(roomId), reservedDate);
+    }
 }

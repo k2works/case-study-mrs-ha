@@ -39,8 +39,8 @@ class ReservableRoomPersistenceAdapterTest {
         MeetingRoom room2 = MeetingRoom.of(2, "会議室2");
         meetingRoomRepository.save(room2);
 
-        ReservableRoomId id1 = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
-        ReservableRoomId id2 = new ReservableRoomId(2, LocalDate.of(2023, 10, 1));
+        ReservableRoomId id1 = ReservableRoomId.of(1, LocalDate.of(2023, 10, 1));
+        ReservableRoomId id2 = ReservableRoomId.of(2, LocalDate.of(2023, 10, 1));
         ReservableRoom reservableRoom1 = new ReservableRoom(id1, room1);
         ReservableRoom reservableRoom2 = new ReservableRoom(id2, room2);
 
@@ -55,7 +55,7 @@ class ReservableRoomPersistenceAdapterTest {
         List<ReservableRoom> rooms = reservableRoomRepository.findByReservableRoomId_reservedDateOrderByReservableRoomId_roomIdAsc(reservedDate);
 
         assertThat(rooms).hasSize(2);
-        assertThat(rooms.get(0).getReservableRoomId().getRoomId()).isEqualTo(1);
-        assertThat(rooms.get(1).getReservableRoomId().getRoomId()).isEqualTo(2);
+        assertThat(rooms.get(0).getReservableRoomId().getRoomId().getValue()).isEqualTo(1);
+        assertThat(rooms.get(1).getReservableRoomId().getRoomId().getValue()).isEqualTo(2);
     }
 }

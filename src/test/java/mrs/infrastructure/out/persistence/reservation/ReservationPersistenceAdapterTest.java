@@ -37,7 +37,7 @@ public class ReservationPersistenceAdapterTest {
     void setUp() {
         reservableRoomRepository.deleteAll();
 
-        ReservableRoomId id1 = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
+        ReservableRoomId id1 = ReservableRoomId.of(1, LocalDate.of(2023, 10, 1));
 
         MeetingRoom room1 = MeetingRoom.of(1, "会議室1");
         meetingRoomRepository.save(room1);
@@ -67,7 +67,7 @@ public class ReservationPersistenceAdapterTest {
     @Test
     @DisplayName("指定した日付の予約が存在しない場合、空のリストを取得する")
     void findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc_Empty() {
-        ReservableRoomId reservableRoomId = new ReservableRoomId();
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(1, LocalDate.of(2023, 10, 1));
 
         List<Reservation> foundReservations = reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId);
 

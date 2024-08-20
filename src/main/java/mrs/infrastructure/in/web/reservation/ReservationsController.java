@@ -49,7 +49,7 @@ public class ReservationsController {
     @RequestMapping(method = RequestMethod.GET)
     String reserveForm(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, @PathVariable("roomId") Integer roomId, Model model) {
         MeetingRoom meetingRoom = roomUseCase.findMeetingRoom(roomId);
-        ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
         List<Reservation> reservations = reservationUseCase.findReservations(reservableRoomId);
 
         List<LocalTime> timeList = Stream.iterate(LocalTime.of(0, 0), t -> t.plusMinutes(30)).limit(24 * 2).toList();
@@ -69,7 +69,7 @@ public class ReservationsController {
             return reserveForm(date, roomId, model);
         }
 
-        ReservableRoom reservableRoom = new ReservableRoom(new ReservableRoomId(roomId, date));
+        ReservableRoom reservableRoom = new ReservableRoom(ReservableRoomId.of(roomId, date));
         Reservation reservation = new Reservation(form.getStartTime(), form.getEndTime(), reservableRoom, userDetails.getUser());
 
         try {

@@ -12,7 +12,7 @@ import java.util.List;
 public class ReservableRoomMapper {
     ReservableRoom mapToDomainEntity(ReservableRoomJpaEntity reservableRoomJpaEntity) {
         return new ReservableRoom(
-                new ReservableRoomId(
+                ReservableRoomId.of(
                         reservableRoomJpaEntity.getReservableRoomId().getRoomId(),
                         reservableRoomJpaEntity.getReservableRoomId().getReservedDate()),
                 MeetingRoom.of(reservableRoomJpaEntity.getMeetingRoomJpaEntity().getRoomId(),
@@ -22,7 +22,7 @@ public class ReservableRoomMapper {
     ReservableRoomJpaEntity mapToJpaEntity(ReservableRoom reservableRoom) {
         return new ReservableRoomJpaEntity(
                 new ReservableRoomIdJpaEntity(
-                        reservableRoom.getReservableRoomId().getRoomId(),
+                        reservableRoom.getReservableRoomId().getRoomId().getValue(),
                         reservableRoom.getReservableRoomId().getReservedDate()),
                 new MeetingRoomJpaEntity(
                         reservableRoom.getMeetingRoom().getRoomId().getValue(),

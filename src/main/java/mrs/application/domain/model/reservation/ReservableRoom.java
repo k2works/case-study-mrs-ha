@@ -20,6 +20,6 @@ public class ReservableRoom {
 
     public ReservableRoom(ReservableRoomId reservableRoomId) {
         this.reservableRoomId = reservableRoomId;
-        this.meetingRoom = MeetingRoom.of(reservableRoomId.getRoomId(), null);
+        this.meetingRoom = MeetingRoom.of(reservableRoomId.getRoomId().getValue(), null);
     }
 }

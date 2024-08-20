@@ -80,7 +80,7 @@ public class ReservationsControllerTest {
         Integer roomId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
         MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
-        ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
@@ -104,7 +104,7 @@ public class ReservationsControllerTest {
         Integer roomId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
         MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
-        ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
         ReservationForm form = new ReservationForm();
         form.setStartTime(null);
         form.setEndTime(LocalTime.of(10, 0));
@@ -130,7 +130,7 @@ public class ReservationsControllerTest {
         Integer roomId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
         MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
-        ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         ReservationForm form = new ReservationForm();
         form.setStartTime(LocalTime.of(9, 0));
@@ -159,7 +159,7 @@ public class ReservationsControllerTest {
         Integer roomId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
         MeetingRoom meetingRoom = MeetingRoom.of(roomId, "Room-1");
-        ReservableRoomId reservableRoomId = new ReservableRoomId(roomId, date);
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, meetingRoom);
         ReservationForm form = new ReservationForm();
         form.setStartTime(LocalTime.of(9, 0));

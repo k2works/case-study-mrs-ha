@@ -39,7 +39,7 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("指定した部屋IDの予約情報を取得する")
     public void shouldFindReservationsByRoomId() {
-        ReservableRoomId reservableRoomId = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(1, LocalDate.of(2023, 10, 1));
         List<Reservation> expectedReservations = IntStream.range(0, 5)
                 .mapToObj(i -> new Reservation(/* construct as needed */))
                 .collect(Collectors.toList());
@@ -55,7 +55,7 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("指定した部屋IDの予約情報が見つからない場合、空のリストを返す")
     public void shouldReturnEmptyListIfNoReservationsFoundByRoomId() {
-        ReservableRoomId reservableRoomId = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(1, LocalDate.of(2023, 10, 1));
 
         when(reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId)).
                 thenReturn(List.of());
@@ -68,8 +68,8 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("正常に予約に成功する場合")
     public void shouldSuccessfullyReserve() {
-        ReservableRoomId reservableRoomId = new ReservableRoomId();
-        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, MeetingRoom.of(reservableRoomId.getRoomId(), "会議室1"));
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(1, LocalDate.of(2023, 10, 1));
+        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, MeetingRoom.of(reservableRoomId.getRoomId().getValue(), "会議室1"));
         Reservation reservation = new Reservation(LocalTime.of(10, 0), LocalTime.of(11, 0), reservableRoom, null);
 
         when(reservableRoomRepository.findOneForUpdateByReservableRoomId(reservableRoomId)).thenReturn(reservableRoom);
@@ -84,8 +84,8 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("会議室が存在しない場合はエラーが発生する")
     public void shouldThrowErrorWhenRoomDoesNotExist() {
-        ReservableRoomId reservableRoomId = new ReservableRoomId();
-        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, MeetingRoom.of(reservableRoomId.getRoomId(), "会議室1"));
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(1, LocalDate.of(2023, 10, 1));
+        ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, MeetingRoom.of(reservableRoomId.getRoomId().getValue(), "会議室1"));
         Reservation reservation = new Reservation(LocalTime.of(10, 0), LocalTime.of(11, 0), reservableRoom, null);
 
         when(reservableRoomRepository.findById(reservableRoomId)).thenReturn(null);
@@ -98,7 +98,7 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("他の予約と時間が重複する場合はエラーが発生する")
     public void shouldThrowErrorWhenReservationOverlaps() {
-        ReservableRoomId reservableRoomId = new ReservableRoomId(1, LocalDate.of(2023, 10, 1));
+        ReservableRoomId reservableRoomId = ReservableRoomId.of(1, LocalDate.of(2023, 10, 1));
         MeetingRoom room = MeetingRoom.of(1, "会議室1");
         ReservableRoom reservableRoom = new ReservableRoom(reservableRoomId, room);
         Reservation reservation = new Reservation(LocalTime.of(10, 0), LocalTime.of(11, 0), reservableRoom, null);

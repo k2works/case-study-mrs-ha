@@ -16,7 +16,7 @@ public class ReservableRoomPersistenceAdapter implements ReservableRoomPort {
     private final ReservableRoomMapper reservableRoomMapper;
 
     public ReservableRoom findById(ReservableRoomId roomId) {
-        ReservableRoomIdJpaEntity reservableRoomIdJpaEntity = new ReservableRoomIdJpaEntity(roomId.getRoomId(), roomId.getReservedDate());
+        ReservableRoomIdJpaEntity reservableRoomIdJpaEntity = new ReservableRoomIdJpaEntity(roomId.getRoomId().getValue(), roomId.getReservedDate());
         return reservableRoomMapper.mapToDomainEntity(reservableRoomRepository.findById(reservableRoomIdJpaEntity).orElseThrow());
     }
 
@@ -29,7 +29,7 @@ public class ReservableRoomPersistenceAdapter implements ReservableRoomPort {
     }
 
     public ReservableRoom findOneForUpdateByReservableRoomId(ReservableRoomId reservableRoomId) {
-        ReservableRoomIdJpaEntity reservableRoomIdJpaEntity = new ReservableRoomIdJpaEntity(reservableRoomId.getRoomId(), reservableRoomId.getReservedDate());
+        ReservableRoomIdJpaEntity reservableRoomIdJpaEntity = new ReservableRoomIdJpaEntity(reservableRoomId.getRoomId().getValue(), reservableRoomId.getReservedDate());
         return reservableRoomMapper.mapToDomainEntity(reservableRoomRepository.findOneForUpdateByReservableRoomId(reservableRoomIdJpaEntity));
     }
 

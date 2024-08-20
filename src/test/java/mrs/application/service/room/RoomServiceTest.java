@@ -33,7 +33,7 @@ public class RoomServiceTest {
 
     @BeforeEach
     public void setUp() {
-        ReservableRoomId roomId = new ReservableRoomId(1, LocalDate.now());
+        ReservableRoomId roomId = ReservableRoomId.of(1, LocalDate.now());
         List<ReservableRoom> rooms = new ArrayList<>();
         rooms.add(new ReservableRoom(roomId));
         when(reservableRoomRepository.findByReservableRoomId_reservedDateOrderByReservableRoomId_roomIdAsc(any())).thenReturn(rooms);
@@ -46,7 +46,7 @@ public class RoomServiceTest {
         List<ReservableRoom> reservableRooms = roomService.findReservableRooms(date);
         assertNotNull(reservableRooms, "Returned list should not be null");
         assertEquals(1, reservableRooms.size(), "The size of the returned list should be 1");
-        assertEquals(1, reservableRooms.get(0).getReservableRoomId().getRoomId(), "The roomId should be 1");
+        assertEquals(1, reservableRooms.get(0).getReservableRoomId().getRoomId().getValue(), "The roomId should be 1");
         assertEquals(date, reservableRooms.get(0).getReservableRoomId().getReservedDate(), "Reserved date should be equal");
     }
 
