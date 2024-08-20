@@ -1,6 +1,7 @@
 package mrs.infrastructure.in.web.reservation;
 
-import mrs.application.domain.model.auth.*;
+import mrs.application.domain.model.auth.RoleName;
+import mrs.application.domain.model.auth.User;
 import mrs.application.domain.model.reservation.ReservableRoom;
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
@@ -62,7 +63,7 @@ public class ReservationsControllerTest {
     private AuthService userDetailsService;
 
     private static User getUser() {
-        return new User(new UserId("taro-yamada"), new Password("password"), new Name("太郎", "山田"), RoleName.USER);
+        return User.of("taro-yamada", "password", "太郎", "山田", RoleName.USER);
     }
 
     @Test

@@ -22,4 +22,8 @@ public class User implements Serializable {
     Name name;
 
     RoleName roleName;
+
+    public static User of(String userId, String password, String firstName, String lastName, RoleName roleName) {
+        return new User(new UserId(userId), new Password(password), new Name(firstName, lastName), roleName);
+    }
 }
