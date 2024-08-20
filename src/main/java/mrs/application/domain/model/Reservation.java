@@ -36,12 +36,12 @@ public class Reservation {
     }
 
     public boolean overlap(Reservation target) {
-        if (!Objects.equals(reservableRoom.getReservableRoomId(), target.reservableRoom.getReservableRoomId())) {
+        if (!Objects.equals(Objects.requireNonNull(reservableRoom).getReservableRoomId(), Objects.requireNonNull(target.reservableRoom).getReservableRoomId())) {
             return false;
         }
-        if (startTime.equals(target.startTime) && endTime.equals(target.endTime)) {
+        if (Objects.requireNonNull(startTime).equals(target.startTime) && Objects.requireNonNull(endTime).equals(target.endTime)) {
             return true;
         }
-        return target.endTime.isAfter(startTime) && endTime.isAfter(target.startTime);
+        return Objects.requireNonNull(target.endTime).isAfter(startTime) && Objects.requireNonNull(endTime).isAfter(target.startTime);
     }
 }
