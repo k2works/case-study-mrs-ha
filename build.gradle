@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.2'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'org.dddjava.jig-gradle-plugin' version '2024.7.2'
 }
 
 group = 'com.example'
@@ -18,22 +19,23 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'org.postgresql:postgresql'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    developmentOnly "org.springframework.boot:spring-boot-devtools"
-    runtimeOnly "org.flywaydb:flyway-core"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.2'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.3.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.3.2'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.3.2'
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.2.8'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
+    runtimeOnly 'com.h2database:h2:2.2.224'
+    runtimeOnly 'org.postgresql:postgresql:42.7.3'
+    runtimeOnly 'org.flywaydb:flyway-core:10.15.0'
     runtimeOnly group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '10.17.1'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools:3.3.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.3.1'
+    testImplementation 'org.springframework.security:spring-security-test:6.3.0'
+    testImplementation 'com.github.irof:jig-erd:0.1.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.3'
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {

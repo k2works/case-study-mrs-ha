@@ -1,0 +1,4 @@
+/**
+ * インフラストラクチャ
+ */
+package mrs.infrastructure;
