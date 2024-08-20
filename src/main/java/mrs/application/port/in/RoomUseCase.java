@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface RoomUseCase {
-    public MeetingRoom findMeetingRoom(Integer roomId);
+    MeetingRoom findMeetingRoom(Integer roomId);
 
-    public List<ReservableRoom> findReservableRooms(LocalDate date);
+    List<ReservableRoom> findReservableRooms(LocalDate date);
 }

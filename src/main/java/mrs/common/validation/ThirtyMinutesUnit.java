@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 public @interface ThirtyMinutesUnit {
-    String message() default "{mrs.app.reservation.ThirtyMinutesUnit.message}";
+    String message() default "{mrs.common.validation.ThirtyMinutesUnit.message}";
 
     Class<?>[] groups() default {};
 

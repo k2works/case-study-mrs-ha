@@ -98,4 +98,21 @@ public class ReservationFormTest {
             }
         }
     }
+
+    @Test
+    @DisplayName("終了時刻が開始時刻より前")
+    public void testEndTimeBeforeStartTime() {
+        ReservationForm form = new ReservationForm();
+        form.setStartTime(LocalTime.of(11, 0));
+        form.setEndTime(LocalTime.of(10, 0));
+
+        Set<ConstraintViolation<ReservationForm>> violations = validator.validate(form);
+        assertFalse(violations.isEmpty());
+
+        for (ConstraintViolation<ReservationForm> violation : violations) {
+            if ("endTime".equals(violation.getPropertyPath().toString())) {
+                assertEquals("終了時刻は開始時刻より後にしてください", violation.getMessage());
+            }
+        }
+    }
 }

@@ -12,10 +12,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
 @Constraint(validatedBy = {EndTimeMustBeAfterStartTimeValidator.class})
-@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
+@Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 public @interface EndTimeMustBeAfterStartTime {
-    String message() default "{mrs.app.reservation.EndTimeMustBeAfterStartTime.message}";
+    String message() default "{mrs.common.validation.EndTimeMustBeAfterStartTime.message}";
 
     Class<?>[] groups() default {};
 
