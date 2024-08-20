@@ -1,6 +1,6 @@
 package mrs.infrastructure.out.persistence.user;
 
-import mrs.application.domain.model.User;
+import mrs.application.domain.model.auth.User;
 import org.springframework.stereotype.Component;
 
 @Component

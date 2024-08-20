@@ -1,9 +1,9 @@
 package mrs.application.service.reservation;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.ReservableRoom;
-import mrs.application.domain.model.ReservableRoomId;
-import mrs.application.domain.model.Reservation;
+import mrs.application.domain.model.reservation.ReservableRoom;
+import mrs.application.domain.model.reservation.ReservableRoomId;
+import mrs.application.domain.model.reservation.Reservation;
 import mrs.application.port.in.ReservationUseCase;
 import mrs.application.port.out.ReservableRoomPort;
 import mrs.application.port.out.ReservationPort;

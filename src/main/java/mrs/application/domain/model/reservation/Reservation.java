@@ -1,10 +1,11 @@
-package mrs.application.domain.model;
+package mrs.application.domain.model.reservation;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Value;
+import mrs.application.domain.model.auth.User;
 
 import java.time.LocalTime;
 import java.util.Objects;

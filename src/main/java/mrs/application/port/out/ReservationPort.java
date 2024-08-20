@@ -1,7 +1,7 @@
 package mrs.application.port.out;
 
-import mrs.application.domain.model.ReservableRoomId;
-import mrs.application.domain.model.Reservation;
+import mrs.application.domain.model.reservation.ReservableRoomId;
+import mrs.application.domain.model.reservation.Reservation;
 
 import java.util.List;
 

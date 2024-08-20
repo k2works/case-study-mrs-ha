@@ -1,9 +1,10 @@
-package mrs.application.domain.model;
+package mrs.application.domain.model.reservation;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Value;
+import mrs.application.domain.model.room.MeetingRoom;
 
 /**
  * 特定の日に予約可能な会議室

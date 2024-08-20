@@ -1,4 +1,4 @@
-package mrs.application.domain.model;
+package mrs.application.domain.model.auth;
 
 /**
  * ロール名

@@ -1,7 +1,7 @@
 package mrs.application.service.user;
 
 import lombok.Getter;
-import mrs.application.domain.model.User;
+import mrs.application.domain.model.auth.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

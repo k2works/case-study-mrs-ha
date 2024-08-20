@@ -1,7 +1,7 @@
 package mrs.infrastructure.out.persistence.room;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.MeetingRoom;
+import mrs.application.domain.model.room.MeetingRoom;
 import mrs.application.port.out.MeetingRoomPort;
 import org.springframework.stereotype.Repository;
 

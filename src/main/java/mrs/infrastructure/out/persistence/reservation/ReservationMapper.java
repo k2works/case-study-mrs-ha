@@ -1,6 +1,6 @@
 package mrs.infrastructure.out.persistence.reservation;
 
-import mrs.application.domain.model.Reservation;
+import mrs.application.domain.model.reservation.Reservation;
 import mrs.infrastructure.out.persistence.user.UserMapper;
 import org.springframework.stereotype.Component;
 

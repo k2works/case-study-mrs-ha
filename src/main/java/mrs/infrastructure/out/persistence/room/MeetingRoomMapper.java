@@ -1,6 +1,6 @@
 package mrs.infrastructure.out.persistence.room;
 
-import mrs.application.domain.model.MeetingRoom;
+import mrs.application.domain.model.room.MeetingRoom;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mrs.application.domain.model.RoleName;
+import mrs.application.domain.model.auth.RoleName;
 
 import java.io.Serializable;
 

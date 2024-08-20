@@ -1,7 +1,7 @@
 package mrs.infrastructure.in.web.room;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.ReservableRoom;
+import mrs.application.domain.model.reservation.ReservableRoom;
 import mrs.application.port.in.RoomUseCase;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;

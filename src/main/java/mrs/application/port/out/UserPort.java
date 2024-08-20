@@ -1,6 +1,6 @@
 package mrs.application.port.out;
 
-import mrs.application.domain.model.User;
+import mrs.application.domain.model.auth.User;
 
 import java.util.Optional;
 

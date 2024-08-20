@@ -1,8 +1,8 @@
 package mrs.application.service.room;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.MeetingRoom;
-import mrs.application.domain.model.ReservableRoom;
+import mrs.application.domain.model.reservation.ReservableRoom;
+import mrs.application.domain.model.room.MeetingRoom;
 import mrs.application.port.in.RoomUseCase;
 import mrs.application.port.out.MeetingRoomPort;
 import mrs.application.port.out.ReservableRoomPort;

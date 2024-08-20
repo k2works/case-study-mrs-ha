@@ -1,8 +1,8 @@
 package mrs.application.service.room;
 
-import mrs.application.domain.model.MeetingRoom;
-import mrs.application.domain.model.ReservableRoom;
-import mrs.application.domain.model.ReservableRoomId;
+import mrs.application.domain.model.reservation.ReservableRoom;
+import mrs.application.domain.model.reservation.ReservableRoomId;
+import mrs.application.domain.model.room.MeetingRoom;
 import mrs.infrastructure.out.persistence.reservation.ReservableRoomPersistenceAdapter;
 import mrs.infrastructure.out.persistence.room.MeetingMeetingRoomPersistenceAdapter;
 import org.junit.jupiter.api.BeforeEach;

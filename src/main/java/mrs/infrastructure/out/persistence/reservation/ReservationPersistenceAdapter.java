@@ -1,8 +1,8 @@
 package mrs.infrastructure.out.persistence.reservation;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.ReservableRoomId;
-import mrs.application.domain.model.Reservation;
+import mrs.application.domain.model.reservation.ReservableRoomId;
+import mrs.application.domain.model.reservation.Reservation;
 import mrs.application.port.out.ReservationPort;
 import org.springframework.stereotype.Repository;
 

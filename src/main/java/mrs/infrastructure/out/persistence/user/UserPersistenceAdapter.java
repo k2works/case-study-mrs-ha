@@ -1,7 +1,7 @@
 package mrs.infrastructure.out.persistence.user;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.User;
+import mrs.application.domain.model.auth.User;
 import mrs.application.port.out.UserPort;
 import org.springframework.stereotype.Repository;
 

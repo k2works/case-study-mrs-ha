@@ -1,5 +1,8 @@
 package mrs.application.domain.model;
 
+import mrs.application.domain.model.reservation.ReservableRoom;
+import mrs.application.domain.model.reservation.ReservableRoomId;
+import mrs.application.domain.model.reservation.Reservation;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package mrs.application.service.user;
 
-import mrs.application.domain.model.RoleName;
-import mrs.application.domain.model.User;
+import mrs.application.domain.model.auth.RoleName;
+import mrs.application.domain.model.auth.User;
 import mrs.infrastructure.out.persistence.user.UserPersistenceAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
