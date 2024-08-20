@@ -2,10 +2,7 @@ package mrs.infrastructure.in.web.reservation;
 
 import mrs.application.domain.model.auth.RoleName;
 import mrs.application.domain.model.auth.User;
-import mrs.application.domain.model.reservation.ReservableRoom;
-import mrs.application.domain.model.reservation.ReservableRoomId;
-import mrs.application.domain.model.reservation.Reservation;
-import mrs.application.domain.model.reservation.ReservationId;
+import mrs.application.domain.model.reservation.*;
 import mrs.application.domain.model.room.MeetingRoom;
 import mrs.application.domain.model.room.RoomId;
 import mrs.application.service.auth.AuthService;
@@ -88,7 +85,7 @@ public class ReservationsControllerTest {
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
         Reservation reservation = Reservation.of(1, form.getStartTime(), form.getEndTime(), reservableRoom, user);
-        given(reservationService.findReservations(reservableRoomId)).willReturn(List.of(reservation));
+        given(reservationService.findReservations(reservableRoomId)).willReturn(ReservationList.of(List.of(reservation)));
 
         this.mockMvc.perform(get("/reservations/{date}/{roomId}", date, roomId.getValue())
                         .with(user(userDetails))

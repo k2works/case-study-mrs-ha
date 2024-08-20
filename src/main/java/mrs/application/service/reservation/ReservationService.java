@@ -1,10 +1,7 @@
 package mrs.application.service.reservation;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.reservation.ReservableRoom;
-import mrs.application.domain.model.reservation.ReservableRoomId;
-import mrs.application.domain.model.reservation.Reservation;
-import mrs.application.domain.model.reservation.ReservationId;
+import mrs.application.domain.model.reservation.*;
 import mrs.application.port.in.ReservationUseCase;
 import mrs.application.port.out.ReservableRoomPort;
 import mrs.application.port.out.ReservationPort;
@@ -12,8 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * 会議室予約サービス
@@ -28,8 +23,8 @@ public class ReservationService implements ReservationUseCase {
     /**
      * 予約一覧を取得する
      */
-    public List<Reservation> findReservations(ReservableRoomId reservableRoomId) {
-        return reservationPort.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId);
+    public ReservationList findReservations(ReservableRoomId reservableRoomId) {
+        return ReservationList.of(reservationPort.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId));
     }
 
     /**

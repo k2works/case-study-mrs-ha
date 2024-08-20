@@ -1,10 +1,7 @@
 package mrs.infrastructure.in.web.reservation;
 
 import lombok.RequiredArgsConstructor;
-import mrs.application.domain.model.reservation.ReservableRoom;
-import mrs.application.domain.model.reservation.ReservableRoomId;
-import mrs.application.domain.model.reservation.Reservation;
-import mrs.application.domain.model.reservation.ReservationId;
+import mrs.application.domain.model.reservation.*;
 import mrs.application.domain.model.room.MeetingRoom;
 import mrs.application.domain.model.room.RoomId;
 import mrs.application.port.in.ReservationUseCase;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -52,12 +50,13 @@ public class ReservationsController {
     String reserveForm(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, @PathVariable("roomId") Integer roomId, Model model) {
         MeetingRoom meetingRoom = roomUseCase.findMeetingRoom(new RoomId(roomId));
         ReservableRoomId reservableRoomId = ReservableRoomId.of(roomId, date);
-        List<Reservation> reservations = reservationUseCase.findReservations(reservableRoomId);
+        ReservationList reservations = reservationUseCase.findReservations(reservableRoomId);
 
         List<LocalTime> timeList = Stream.iterate(LocalTime.of(0, 0), t -> t.plusMinutes(30)).limit(24 * 2).toList();
+        List<Reservation> reservationList = reservations != null ? reservations.getValue() : Collections.emptyList();
 
         model.addAttribute("room", meetingRoom);
-        model.addAttribute("reservations", reservations);
+        model.addAttribute("reservations", reservationList);
         model.addAttribute("timeList", timeList);
         return "reservation/reserveForm";
     }

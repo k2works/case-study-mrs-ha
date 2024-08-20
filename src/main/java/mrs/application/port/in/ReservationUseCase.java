@@ -3,11 +3,10 @@ package mrs.application.port.in;
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
 import mrs.application.domain.model.reservation.ReservationId;
-
-import java.util.List;
+import mrs.application.domain.model.reservation.ReservationList;
 
 public interface ReservationUseCase {
-    List<Reservation> findReservations(ReservableRoomId reservableRoomId);
+    ReservationList findReservations(ReservableRoomId reservableRoomId);
 
     Reservation reserve(Reservation reservation);
 

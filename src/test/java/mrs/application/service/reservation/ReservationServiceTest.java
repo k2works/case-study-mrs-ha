@@ -48,7 +48,7 @@ public class ReservationServiceTest {
         when(reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId)).
                 thenReturn(expectedReservations);
 
-        List<Reservation> actualReservations = reservationService.findReservations(reservableRoomId);
+        List<Reservation> actualReservations = reservationService.findReservations(reservableRoomId).getValue();
 
         assertEquals(expectedReservations, actualReservations);
     }
@@ -61,7 +61,7 @@ public class ReservationServiceTest {
         when(reservationRepository.findByReservableRoom_ReservableRoomIdOrderByStartTimeAsc(reservableRoomId)).
                 thenReturn(List.of());
 
-        List<Reservation> actualReservations = reservationService.findReservations(reservableRoomId);
+        List<Reservation> actualReservations = reservationService.findReservations(reservableRoomId).getValue();
 
         assertEquals(List.of(), actualReservations);
     }
