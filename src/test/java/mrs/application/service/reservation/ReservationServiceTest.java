@@ -4,6 +4,7 @@ import mrs.application.domain.model.auth.*;
 import mrs.application.domain.model.reservation.ReservableRoom;
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
+import mrs.application.domain.model.reservation.ReservationId;
 import mrs.application.domain.model.room.MeetingRoom;
 import mrs.infrastructure.out.persistence.reservation.ReservableRoomPersistenceAdapter;
 import mrs.infrastructure.out.persistence.reservation.ReservationPersistenceAdapter;
@@ -128,9 +129,9 @@ public class ReservationServiceTest {
     @Test
     @DisplayName("予約が存在しない場合はエラーが発生する")
     public void shouldThrowErrorWhenReservationDoesNotExist() {
-        int reservationId = 1;
+        ReservationId reservationId = new ReservationId(1);
 
-        when(reservationRepository.findById(reservationId)).thenReturn(null);
+        when(reservationRepository.findById(reservationId.getValue())).thenReturn(null);
 
         assertThrows(IllegalStateException.class, () -> {
             reservationService.findOne(reservationId);

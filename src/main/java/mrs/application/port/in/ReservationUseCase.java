@@ -2,6 +2,7 @@ package mrs.application.port.in;
 
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
+import mrs.application.domain.model.reservation.ReservationId;
 
 import java.util.List;
 
@@ -12,5 +13,5 @@ public interface ReservationUseCase {
 
     void cancel(Reservation reservation);
 
-    Reservation findOne(Integer reservationId);
+    Reservation findOne(ReservationId reservationId);
 }

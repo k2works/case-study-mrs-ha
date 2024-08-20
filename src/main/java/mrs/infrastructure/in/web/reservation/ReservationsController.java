@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.reservation.ReservableRoom;
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
+import mrs.application.domain.model.reservation.ReservationId;
 import mrs.application.domain.model.room.MeetingRoom;
 import mrs.application.port.in.ReservationUseCase;
 import mrs.application.port.in.RoomUseCase;
@@ -88,7 +89,7 @@ public class ReservationsController {
     @RequestMapping(method = RequestMethod.POST, params = "cancel")
     String cancel(@RequestParam("reservationId") Integer reservationId, @PathVariable("roomId") Integer roomId, @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @PathVariable("date") LocalDate date, Model model) {
         try {
-            Reservation reservation = reservationUseCase.findOne(reservationId);
+            Reservation reservation = reservationUseCase.findOne(new ReservationId(reservationId));
             reservationUseCase.cancel(reservation);
         } catch (AccessDeniedException e) {
             model.addAttribute("error", e.getMessage());

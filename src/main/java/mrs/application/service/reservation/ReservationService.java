@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import mrs.application.domain.model.reservation.ReservableRoom;
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
+import mrs.application.domain.model.reservation.ReservationId;
 import mrs.application.port.in.ReservationUseCase;
 import mrs.application.port.out.ReservableRoomPort;
 import mrs.application.port.out.ReservationPort;
@@ -61,8 +62,8 @@ public class ReservationService implements ReservationUseCase {
     /**
      * 予約情報を取得する
      */
-    public Reservation findOne(Integer reservationId) {
-        Reservation reservation = reservationPort.findById(reservationId);
+    public Reservation findOne(ReservationId reservationId) {
+        Reservation reservation = reservationPort.findById(reservationId.getValue());
         if (reservation == null) {
             throw new IllegalStateException("予約が見つかりません。");
         }

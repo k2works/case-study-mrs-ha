@@ -5,6 +5,7 @@ import mrs.application.domain.model.auth.User;
 import mrs.application.domain.model.reservation.ReservableRoom;
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
+import mrs.application.domain.model.reservation.ReservationId;
 import mrs.application.domain.model.room.MeetingRoom;
 import mrs.application.service.auth.AuthService;
 import mrs.application.service.auth.AuthUserDetails;
@@ -183,7 +184,7 @@ public class ReservationsControllerTest {
     @DisplayName("権限のない予約をキャンセルしようとした場合、エラーメッセージと共にフォームが再読み込みされるべきである")
     public void testCancel_NonExistentReservation_() throws Exception {
         Integer roomId = 1;
-        Integer reservationId = 1;
+        ReservationId reservationId = new ReservationId(1);
         LocalDate date = LocalDate.of(2022, 2, 22);
         String errorMessage = "要求されたキャンセルは許可できません。";
         doThrow(new AccessDeniedException(errorMessage)).when(reservationService).findOne(eq(reservationId));
@@ -198,7 +199,7 @@ public class ReservationsControllerTest {
                         .with(user(userDetails))
                         .with(csrf())
                         .param("cancel", "")
-                        .param("reservationId", String.valueOf(reservationId)))
+                        .param("reservationId", String.valueOf(reservationId.getValue())))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("error"))
                 .andExpect(model().attribute("error", errorMessage));
