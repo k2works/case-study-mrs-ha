@@ -15,13 +15,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 public class User implements Serializable {
-    String userId;
+    UserId userId;
 
-    String password;
+    Password password;
 
-    String firstName;
-
-    String lastName;
+    Name name;
 
     RoleName roleName;
 }

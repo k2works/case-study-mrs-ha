@@ -1,7 +1,6 @@
 package mrs.application.service.auth;
 
-import mrs.application.domain.model.auth.RoleName;
-import mrs.application.domain.model.auth.User;
+import mrs.application.domain.model.auth.*;
 import mrs.infrastructure.out.persistence.auth.UserPersistenceAdapter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +28,7 @@ public class AuthUserDetailsServiceTest {
     @Test
     @DisplayName("ユーザが存在する場合、ユーザ情報を返す")
     void loadUserByUsername_WhenUserExists_ReturnsUserDetails() {
-        User user = new User("test", "pass", "first", "last", RoleName.USER);
+        User user = new User(new UserId("test"), new Password("pass"), new Name("first", "last"), RoleName.USER);
 
         when(repository.findById(anyString())).thenReturn(Optional.of(user));
 

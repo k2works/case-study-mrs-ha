@@ -1,7 +1,6 @@
 package mrs.application.service.reservation;
 
-import mrs.application.domain.model.auth.RoleName;
-import mrs.application.domain.model.auth.User;
+import mrs.application.domain.model.auth.*;
 import mrs.application.domain.model.reservation.ReservableRoom;
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
@@ -117,7 +116,7 @@ public class ReservationServiceTest {
     @DisplayName("正常に予約をキャンセルする場合")
     public void shouldSuccessfullyCancel() {
         int reservationId = 1;
-        User requestUser = new User("admin", "password", "太郎", "山田", RoleName.ADMIN);
+        User requestUser = new User(new UserId("admin"), new Password("password"), new Name("太郎", "山田"), RoleName.ADMIN);
         Reservation reservation = new Reservation(reservationId, LocalTime.of(10, 0), LocalTime.of(11, 0), null, requestUser);
 
         when(reservationRepository.findById(reservationId)).thenReturn(reservation);
@@ -130,7 +129,6 @@ public class ReservationServiceTest {
     @DisplayName("予約が存在しない場合はエラーが発生する")
     public void shouldThrowErrorWhenReservationDoesNotExist() {
         int reservationId = 1;
-        User requestUser = new User("admin", "password", "太郎", "山田", RoleName.ADMIN);
 
         when(reservationRepository.findById(reservationId)).thenReturn(null);
 
@@ -143,7 +141,7 @@ public class ReservationServiceTest {
     @DisplayName("管理者権限を持つユーザーが他のユーザーの予約をキャンセルする場合")
     public void shouldSuccessfullyCancelOtherUsersReservation() {
         int reservationId = 1;
-        User owner = new User("user1", "password", "太郎", "山田", RoleName.USER);
+        User owner = new User(new UserId("user1"), new Password("password"), new Name("太郎", "山田"), RoleName.USER);
         Reservation reservation = new Reservation(reservationId, LocalTime.of(10, 0), LocalTime.of(11, 0), null, owner);
 
         when(reservationRepository.findById(reservationId)).thenReturn(reservation);

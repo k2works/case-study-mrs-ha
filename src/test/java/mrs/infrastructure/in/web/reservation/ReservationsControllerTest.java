@@ -1,7 +1,6 @@
 package mrs.infrastructure.in.web.reservation;
 
-import mrs.application.domain.model.auth.RoleName;
-import mrs.application.domain.model.auth.User;
+import mrs.application.domain.model.auth.*;
 import mrs.application.domain.model.reservation.ReservableRoom;
 import mrs.application.domain.model.reservation.ReservableRoomId;
 import mrs.application.domain.model.reservation.Reservation;
@@ -62,6 +61,10 @@ public class ReservationsControllerTest {
     @Autowired
     private AuthService userDetailsService;
 
+    private static User getUser() {
+        return new User(new UserId("taro-yamada"), new Password("password"), new Name("太郎", "山田"), RoleName.USER);
+    }
+
     @Test
     @WithMockUser(username = "user", roles = "USER")  // この行を追加
     @DisplayName("指定した日付と会議室IDに対応する予約情報を取得して予約フォームを表示する")
@@ -70,9 +73,9 @@ public class ReservationsControllerTest {
         form.setStartTime(LocalTime.of(9, 0));
         form.setEndTime(LocalTime.of(10, 0));
 
-        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
+        User user = getUser();
         given(userDetails.getUser()).willReturn(user);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
         Integer roomId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
@@ -94,7 +97,6 @@ public class ReservationsControllerTest {
                 .andExpect(model().attribute("reservations", List.of(reservation)));
     }
 
-
     @Test
     @WithMockUser(username = "user", roles = "USER")  // この行を追加
     @DisplayName("BindResultにエラーがある場合、エラー付きでreserveFormを返すことをテスト")
@@ -109,9 +111,9 @@ public class ReservationsControllerTest {
 
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
-        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
+        User user = getUser();
         given(userDetails.getUser()).willReturn(user);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
         mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
                         .with(user(userDetails))
@@ -137,9 +139,9 @@ public class ReservationsControllerTest {
         doThrow(new UnavailableReservationException("nothing")).when(reservationService).reserve(any(Reservation.class));
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
-        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
+        User user = getUser();
         given(userDetails.getUser()).willReturn(user);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
         this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
                         .with(user(userDetails))
@@ -163,9 +165,9 @@ public class ReservationsControllerTest {
         form.setStartTime(LocalTime.of(9, 0));
         form.setEndTime(LocalTime.of(10, 0));
 
-        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
+        User user = getUser();
         given(userDetails.getUser()).willReturn(user);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
         mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
                         .with(user(userDetails))
@@ -187,9 +189,9 @@ public class ReservationsControllerTest {
         MeetingRoom meetingRoom = new MeetingRoom(roomId, "Room-1");
         given(roomService.findMeetingRoom(roomId)).willReturn(meetingRoom);
 
-        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
+        User user = getUser();
         given(userDetails.getUser()).willReturn(user);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
         this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
                         .with(user(userDetails))
@@ -209,9 +211,9 @@ public class ReservationsControllerTest {
         Integer reservationId = 1;
         LocalDate date = LocalDate.of(2022, 2, 22);
 
-        User user = new User("taro-yamada", "password", "太郎", "山田", RoleName.USER);
+        User user = getUser();
         given(userDetails.getUser()).willReturn(user);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId());
+        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUserId().getValue());
 
         this.mockMvc.perform(post("/reservations/{date}/{roomId}", date, roomId)
                         .with(user(userDetails))
