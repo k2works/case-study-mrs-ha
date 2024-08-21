@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<body>
+<section class="sidebar" id="side-nav">
+    <div>
+        <div class="nav-contanier">
+            <form method="post" th:action="@{/logout}">
+                <nav class="side-nav" id="side-nav-menu">
+                    <ul>
+                        <li class="nav-item nav-sub-item active" id="side-nav-home-nav">
+                            <a th:href="@{'/'}">HOME</a>
+                        </li>
+                        <li class="nav-item">予約管理
+                            <ul class="nav-sub-list">
+                                <li class="nav-sub-item" id="side-nav-user-nav">
+                                    <a th:href="@{'/rooms'}">会議室一覧</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item" id="side-nav-logout-nav">
+                            <button class="link-style">ログアウト</button>
+                        </li>
+                    </ul>
+                </nav>
+            </form>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

@@ -10,67 +10,10 @@
 <div>
     <div class="root">
         <div class="root-container w-container">
-            <header class="header" id="header">
-                <div>
-                    <div class="header-container w-container">
-                        <div class="site">
-                            <a class="logo" href="">MRS</a>
-                        </div>
-
-                        <div id="nav">
-                            <div>
-                                <div class="nav-contanier">
-                                    <form method="post" th:action="@{/logout}">
-                                        <button class="navbtn" id="nav-button">
-                                            <i class="fas fa-bars"></i>
-                                            <i class="fas fa-times"></i>
-                                            <span class="sr-only">MENU</span>
-                                        </button>
-
-                                        <nav class="nav" id="nav-menu">
-                                            <ul>
-                                                <li class="nav-item nav-sub-item active" id="nav-home-nav">HOME</li>
-                                                <li class="nav-item">予約管理
-                                                    <ul class="nav-sub-list">
-                                                        <li class="nav-sub-item" id="nav-user-nav">会議室一覧</li>
-                                                    </ul>
-                                                </li>
-                                                <li class="nav-item" id="nav-logout-nav">
-                                                    <button class="link-style">ログアウト</button>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </header>
+            <div th:include="fragment/header"></div>
 
             <div class="section-container">
-                <section class="sidebar" id="side-nav">
-                    <div>
-                        <div class="nav-contanier">
-                            <form method="post" th:action="@{/logout}">
-                                <nav class="side-nav" id="side-nav-menu">
-                                    <ul>
-                                        <li class="nav-item nav-sub-item active" id="side-nav-home-nav">HOME</li>
-                                        <li class="nav-item">予約管理
-                                            <ul class="nav-sub-list">
-                                                <li class="nav-sub-item" id="side-nav-user-nav">会議室一覧</li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item" id="side-nav-logout-nav">
-                                            <button class="link-style">ログアウト</button>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </form>
-                        </div>
-                    </div>
-                </section>
+                <div th:include="fragment/sidebar"></div>
 
                 <section class="contents" id="contents">
                     <div>
@@ -97,19 +40,7 @@
                 </section>
             </div>
 
-            <footer class="footer" id="footer">
-                <div>
-                    <div class="footer-container w-container" id="footer">
-                        <div class="footer-site">
-                            MeetingRoom Reservation System
-                        </div>
-
-                        <div class="footer-copy">
-                            @2024 K2works
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <div th:include="fragment/footer"></div>
         </div>
     </div>
 </div>
