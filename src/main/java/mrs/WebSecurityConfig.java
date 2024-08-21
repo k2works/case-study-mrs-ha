@@ -30,7 +30,7 @@ public class WebSecurityConfig {
                         .loginProcessingUrl("/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/rooms", true)
+                        .defaultSuccessUrl("/", true)
                         .failureUrl("/loginForm?error=true")
                         .permitAll()
                 );

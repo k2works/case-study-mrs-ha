@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width" name="viewport">
+    <title></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div>
+    <div class="root">
+        <div class="root-container w-container">
+            <div th:include="fragment/header"></div>
+
+            <div class="section-container">
+                <div th:include="fragment/sidebar"></div>
+
+                <section class="contents" id="contents">
+                    <div>
+                        <div class="single-view-object-container">
+                            <div class="view-message-container" id="message"></div>
+                            <div class="single-view-container">
+                                <div class="single-view-header">
+                                    <div class="single-view-header-item">
+                                        <h1 class="single-view-title">HOME</h1>
+                                        <p class="single-view-subtitle">お知らせ</p>
+                                    </div>
+
+                                </div>
+
+                                <div class="single-view-content">
+
+                                    <dl class="info">
+                                    </dl>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div th:include="fragment/footer"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

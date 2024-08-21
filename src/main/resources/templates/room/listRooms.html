@@ -2,22 +2,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width" name="viewport">
     <title th:text="|${#temporals.format(date, 'yyyy/M/d')}の会議室|">2016/5/20の会議室</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h3>会議室</h3>
-<a th:href="@{'/rooms/' + ${date.minusDays(1)}}">&lt; 前日</a>
-<span th:text="|${#temporals.format(date, 'yyyy/M/d')}の会議室|">2016/5/20の会議室</span>
-<a th:href="@{'/rooms/' + ${date.plusDays(1)}}">翌日 &gt;</a>
+<div>
+    <div class="root">
+        <div class="root-container w-container">
+            <div th:include="fragment/header"></div>
 
-<ul>
-    <li th:each="room: ${rooms}">
-        <a th:href="@{'/reservations/' + ${date} + '/' + ${room.meetingRoom.roomId.value}}"
-           th:text="${room.meetingRoom.roomName.value}"></a>
-    </li>
-</ul>
-<form method="post" th:action="@{/logout}">
-    <button>ログアウト</button>
-</form>
+            <div class="section-container">
+                <div th:include="fragment/sidebar"></div>
+
+                <section class="contents" id="contents">
+                    <div>
+                        <div class="collection-view-object-container">
+
+                            <div class="view-message-container" id="message"></div>
+                            <div class="collection-view-container">
+                                <div class="collection-view-header">
+                                    <div class="single-view-header-item">
+                                        <h1 class="single-view-title">会議室</h1>
+
+                                    </div>
+                                </div>
+
+                                <div class="collection-view-content">
+                                    <a th:href="@{'/rooms/' + ${date.minusDays(1)}}">&lt; 前日</a>
+                                    <span th:text="|${#temporals.format(date, 'yyyy/M/d')}の会議室|">2016/5/20の会議室</span>
+                                    <a th:href="@{'/rooms/' + ${date.plusDays(1)}}">翌日 &gt;</a>
+
+                                    <div class="collection-object-container">
+                                        <ul class="collection-object-list">
+                                            <li class="collection-object-item" th:each="room: ${rooms}">
+                                                <a th:href="@{'/reservations/' + ${date} + '/' + ${room.meetingRoom.roomId.value}}"
+                                                   th:text="${room.meetingRoom.roomName.value}"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div th:include="fragment/footer"></div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+

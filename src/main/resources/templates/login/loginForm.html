@@ -1,33 +1,54 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width" name="viewport">
     <title></title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
-<h3>ログインフォーム</h3>
+<div>
+    <div class="root-container w-container">
+        <div class="view-container" id="contents">
+            <form method="POST" th:action="@{/login}">
+                <div class="single-view-object-container">
+                    <div class="view-message-box-container" id="message"></div>
+                    <div class="single-view-box-container">
+                        <div class="single-view-header">
+                            <div class="single-view-header-item">
+                                <h1 class="single-view-title logo">MRS</h1>
+                                <p class="single-view-subtitle">MeetingRoom Reservation System</p>
+                            </div>
+                            <div class="single-view-header-item">
+                                <button class="action-button" id="login" type="submit">ログイン</button>
+                            </div>
+                        </div>
 
-<p th:if="${param.error}">
-    Error!
-</p>
-<form method="POST" th:action="@{/login}">
-    <table>
-        <tr>
-            <td><label for="username">User:</label></td>
-            <td><input id="username" name="username" type="text" value="aaaa"></td>
-        </tr>
-        <tr>
-            <td><label for="password">Password:</label></td>
-            <td><input id="password" name="password" type="password" value="demo"></td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>
-                <button type="submit">ログイン</button>
-            </td>
-        </tr>
-    </table>
-</form>
-
+                        <div class="single-view-content">
+                            <div class="single-view-content-item">
+                                <div class="single-view-content-item-form">
+                                    <div class="single-view-content-item-form-item">
+                                        <label class="single-view-content-item-form-item-label"
+                                               for="username">ユーザー名</label>
+                                        <input class="single-view-content-item-form-item-input" id="username"
+                                               name="username" type="text" value="aaaa">
+                                    </div>
+                                    <div class="single-view-content-item-form-item">
+                                        <label class="single-view-content-item-form-item-label"
+                                               for="password">パスワード</label>
+                                        <input class="single-view-content-item-form-item-input" id="password"
+                                               name="password" type="password" value="demo">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
+
 </html>
