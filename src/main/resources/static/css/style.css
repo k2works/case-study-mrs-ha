@@ -1,0 +1,632 @@
+@charset "UTF-8";
+
+/* 基本 */
+:root {
+    --v-space: clamp(90px, 9vw, 120px);
+}
+
+body {
+    margin: 0;
+    background-color: #eeeeee;
+    color: #222222;
+    font-family: sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+ul {
+    list-style: none;
+}
+
+p {
+    line-height: 1.8;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    filter: brightness(90%) contrast(120%);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* 横幅と左右の余白 */
+.w-container {
+    width: min(92%, 1166px);
+    margin: auto;
+}
+
+/* ルート */
+.root {
+}
+
+.root-container {
+    display: grid;
+}
+
+/* ヘッダー */
+.header {
+    height: 112px;
+    background-color: #ffffff;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+/* ナビゲーション */
+.navbtn {
+    padding: 0;
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #aaaaaa;
+    font-size: 30px;
+}
+
+.open .navbtn {
+    z-index: 110;
+    color: #ffffff;
+}
+
+.navbtn .fa-bars {
+    display: revert;
+    color: #0d1117;
+}
+
+.open .navbtn .fa-bars {
+    display: none;
+}
+
+.navbtn .fa-times {
+    display: none;
+}
+
+.open .navbtn .fa-times {
+    display: revert;
+    color: #0d1117;
+}
+
+/* メイン */
+.section {
+}
+
+.section-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.view-container {
+}
+
+.view-message-box-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* シングル */
+.single-view-object-container {
+}
+
+.single-view-box-container {
+    display: grid;
+    gap: 20px;
+    justify-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 500px;
+    margin: 20px auto;
+}
+
+.single-view-container {
+    display: grid;
+}
+
+.single-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 16px;
+}
+
+.single-view-header-item {
+}
+
+.single-view-content {
+    width: auto;
+    padding: 16px;
+}
+
+.single-view-content-item {
+    display: flex;
+}
+
+.single-view-content-item-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.single-view-content-item-form-item {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+}
+
+.single-view-content-item-form-item-label {
+    flex: 0 0 100px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.single-view-content-item-form-item-input {
+    flex: 1;
+    font-size: 14px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.single-view-content-item-form-item-select {
+    flex: 1;
+    font-size: 14px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* コレクション */
+.collection-view-object-container {
+    height: 100%;
+}
+
+.collection-view-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.collection-view-header {
+}
+
+.collection-view-header-item {
+}
+
+.collection-view-content {
+}
+
+.collection-object-container {
+    margin-bottom: 1rem;
+}
+
+.collection-object-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.collection-object-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.collection-object-item-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.collection-object-item:hover {
+    background-color: #ddd;
+}
+
+.collection-object-item-content {
+}
+
+.collection-object-item-content-name {
+    font-weight: bold;
+    font-size: 1.0rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.collection-object-item-content-details {
+    font-size: 0.6rem;
+}
+
+/* ロゴ */
+.logo {
+    font-weight: bold;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    color: #00a157;
+}
+
+/* ボタン */
+.action-button {
+    background-color: #007aff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.button-contanier {
+
+}
+
+button.link-style {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+}
+
+button.link-style:hover {
+    text-decoration: none;
+}
+
+/* メッセージ */
+.view-message-container {
+    display: flex;
+    justify-content: center;
+}
+
+.view-message-box-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.view-message-container {
+}
+
+.view-message-content {
+}
+
+.view-message-content-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+}
+
+.view-message-content-text p {
+    margin: 0;
+    padding: 0;
+}
+
+.view-message-content-error-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+}
+
+.view-message-content-error-text p {
+    margin: 0;
+    padding: 0;
+}
+
+/* お知らせ */
+.info {
+    -webkit-overflow-scrolling: touch;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    display: -webkit-box;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 13em;
+    margin: 0 auto;
+    overflow-y: scroll;
+    width: 300px;
+}
+
+.info dd,
+.info dt {
+    box-sizing: border-box;
+    width: 100%;
+    padding-bottom: 0.5em;
+    padding-left: 0.5em;
+}
+
+.info dt {
+    font-style: normal;
+    font-weight: initial;
+}
+
+.info dt:first-of-type {
+    padding-top: 0.5em;
+    border-top: 1px dotted #343a40;
+}
+
+.info dt time {
+    margin-right: 0.5em;
+}
+
+.info dt span {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 7em;
+    margin-right: 0.5em;
+    padding: 0 0.5em;
+    background-color: #009688;
+    color: #fff;
+    font-size: 0.8em;
+    line-height: 1.75;
+    text-align: center;
+}
+
+.info time {
+    color: #adb5bd;
+}
+
+.info dd {
+    margin-left: 0;
+    margin-bottom: 0.5em;
+    border-bottom: 1px dotted #343a40;
+}
+
+.info dd:nth-of-type(-n + 3) {
+    position: relative;
+}
+
+/* ページネーション */
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.pagination__item:not(:last-child) {
+    margin-right: 10px;
+}
+
+.pagination__link {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+
+    /* ボタンデザイン */
+    border: 1px solid black;
+    background-color: white;
+}
+
+/* 現在のページのボタンデザイン */
+.pagination__link--active {
+    color: white;
+    background-color: black;
+}
+
+/* 「...」のデザイン */
+.pagination__link--extend {
+    border: none;
+}
+
+/* タブページ */
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+/* Style the buttons inside the tab */
+.tablinks {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tablinks:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tablinks.active {
+    background-color: #ccc;
+}
+
+/* フッター */
+.footer {
+    padding: 70px 0;
+    background-color: #ffffff;
+    color: #707070;
+    font-size: 13px;
+}
+
+.footer-container {
+    display: grid;
+    gap: 10px;
+    justify-items: center;
+}
+
+/* レスポンシブ ナビゲーション */
+@media screen and (min-width: 768px) {
+    .navbtn {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .side-nav {
+        display: none;
+    }
+
+    .nav {
+        position: fixed;
+        inset: 0 -100% 0 100%;
+        z-index: 100;
+        background-color: #4e483ae6;
+        transition: transform 0.3s;
+    }
+
+    .open .nav {
+        transform: translate(-100%, 0);
+    }
+
+    .open body {
+        position: fixed;
+        overflow: hidden;
+    }
+
+    .nav ul {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        gap: 40px;
+        color: #ffffff;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .nav ul {
+        display: none;
+    }
+
+    .side-nav .nav-item {
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .side-nav .nav-item .nav-sub-item:hover {
+        background-color: #ddd;
+    }
+
+    .side-nav .nav-item .nav-sub-item.active {
+        background-color: #aaa;
+    }
+
+    .side-nav .nav-sub-list {
+        list-style-type: none;
+        padding: 0;
+        margin-left: 1rem;
+    }
+
+    .side-nav .nav-sub-item {
+        margin-bottom: 0.5rem;
+        padding: 0.1rem;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .side-nav .nav-sub-item:hover {
+        background-color: #fff;
+    }
+
+    .side-nav .nav-sub-item.active {
+        background-color: #eee;
+    }
+}
+
+/* レスポンシブ コンテンツ */
+@media screen and (max-width: 768px) {
+    .collection-object-item {
+        display: block;
+    }
+
+    .single-view-box-container {
+        width: auto;
+    }
+}
+
+table.form {
+    margin: 0 0 0.8em 50px;
+}
+
+table.form tr {
+    width: 100px;
+    text-align: left;
+    padding-right: 1em
+}
+
+table.form td {
+    width: 80px;
+    text-align: right;
+    padding-right: 1em
+}
+
