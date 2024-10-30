@@ -1,6 +1,7 @@
 # 会議室予約システムのケーススタディ
 
 [![Node.js CI](https://github.com/k2works/case-study-mrs-ha/actions/workflows/node.js.yml/badge.svg)](https://github.com/k2works/case-study-mrs-ha/actions/workflows/node.js.yml)
+[![Java CI with Gradle](https://github.com/k2works/case-study-mrs-ha/actions/workflows/gradle.yml/badge.svg)](https://github.com/k2works/case-study-mrs-ha/actions/workflows/gradle.yml)
 
 ## 概要
 
