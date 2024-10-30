@@ -4,9 +4,16 @@
 
 ## 概要
 
-[ガイドライン](./docs/slides/PITCHME.md)
+[Spring 徹底入門 Spring Framework による Java アプリケーション開発 第２版](https://www.amazon.co.jp/dp/B0CZ8GVCXZ/ref=sspa_dk_hqp_detail_aax_0?psc=1&sp_csd=d2lkZ2V0TmFtZT1zcF9ocXBfc2hhcmVk)
+チュートリアルの実装例
+
+[手を動かしてわかるクリーンアーキテクチャ　ヘキサゴナルアーキテクチャによるクリーンなアプリケーション開発](https://www.amazon.co.jp/dp/429501978X?ref=ppx_yo2ov_dt_b_fed_asin_title)
+適用
 
 ### 目的
+
+- SpringBootの学習
+- ヘキサゴナルアーキテクチャの学習
 
 ### 前提
 
