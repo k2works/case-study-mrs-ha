@@ -31,20 +31,11 @@ $ gradle bootRun
 
 ## 構成
 
-[Javaで記述したソフトウェア仕様を図形表現で可視化したり一覧表にまとめる](https://case-study-mrs-ha.vercel.app/docs/release/v0.1/jig/index.html)
+### Javaで記述したソフトウェア仕様を図形表現で可視化したり一覧表にまとめる
 
-- [要件](./docs/req.adoc)
-- [開発](./docs/dev.adoc)
-- [構築](./docs/build.adoc)
-- [配置](./docs/ship.adoc)
-- [運用](./docs/run.adoc)
+- [ヘキサゴナルアーキテクチャ](https://case-study-mrs-ha.vercel.app/docs/release/v0.1/jig/index.html)
+- [レイヤードアーキテクチャ](https://case-study-mrs.vercel.app/docs/release/v0.1/jig/index.html)
 
 ## 参照
 
-- [Conventional Commits 1.0.0](https://www.conventionalcommits.org/ja/v1.0.0/)
-- [@k2works/intercept-booster](https://www.npmjs.com/package/@k2works/intercept-booster)
-- [@k2works/full-stack-lab](https://www.npmjs.com/package/@k2works/full-stack-lab)
-- [Gulp](https://gulpjs.com/docs/en/getting-started/quick-start)
-- [Asciidoctor](https://asciidoctor.org/)
-- [Browsersync](https://browsersync.io/)
-- [Marp](https://marp.app/)
+- [会議室予約システムのケーススタディ](https://github.com/k2works/case-study-mrs)
