@@ -1,0 +1,204 @@
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <link href="./assets/style.css" rel="stylesheet">
+    <script src="./assets/marked.min.js"></script>
+    <link rel="icon" href="./assets/favicon.ico">
+    <title>ユースケース概要</title>
+</head>
+<body>
+<header class="top">
+    <a href="./index.html">[INDEX]</a>
+    <b>ユースケース概要</b>
+</header>
+<div class="sideNavMain">
+    <nav class="tree">
+        <details open>
+            <summary class="package">
+                <a href="#mrs.application.service">サービス層</a>
+            </summary>
+            <details open>
+            <summary class="package">
+                <a href="#mrs.application.service.reservation">reservation</a>
+            </summary>
+            <div><a href="#mrs.application.service.reservation.ReservationService">会議室予約サービス</a></div>
+        </details><details open>
+            <summary class="package">
+                <a href="#mrs.application.service.room">room</a>
+            </summary>
+            <div><a href="#mrs.application.service.room.RoomService">会議室サービス</a></div>
+        </details><details open>
+            <summary class="package">
+                <a href="#mrs.application.service.auth">auth</a>
+            </summary>
+            <div><a href="#mrs.application.service.auth.AuthService">認証サービス</a></div>
+        </details>
+        </details>
+        
+    </nav>
+
+    <main class="usecase">
+        <details open>
+            <summary>ユースケース複合図（ハンドラ）</summary>
+            <a href="./composite-usecase-handler.svg">
+                <img src="./composite-usecase-handler.svg">
+            </a>
+        </details>
+        <details>
+            <summary>ユースケース複合図</summary>
+            <a href="./composite-usecase.svg">
+                <img src="./composite-usecase.svg">
+            </a>
+        </details>
+
+        <!--
+        <th:block th:each="item : ${jigPackages}">
+            <section th:replace="fragment-package :: item">
+                パッケージ表示
+            </section>
+        </th:block>
+        -->
+
+        
+            <section class="type">
+                <h2><a name="mrs.application.service.auth.AuthService">認証サービス</a></h2>
+                <div class="fully-qualified-name">mrs.application.service.auth.AuthService</div>
+
+                
+                    
+                
+
+                <section class="method">
+                    <h3>ユーザー情報を取得する</h3>
+                    <div class="fully-qualified-name">loadUserByUsername(String):UserDetails</div>
+                    <dl class="depends">
+                        <dt>要求するもの（引数）</dt>
+                        <dd>
+                            <a class="method-argument-item" href="./domain.html#java.lang.String">String</a>
+                        </dd>
+                        <dt>得られるもの（戻り値）</dt>
+                        <dd><a href="./domain.html#org.springframework.security.core.userdetails.UserDetails">UserDetails</a></dd>
+                    </dl>
+
+                    <section class="description markdown"></section>
+                </section>
+            </section>
+        
+            <section class="type">
+                <h2><a name="mrs.application.service.reservation.ReservationService">会議室予約サービス</a></h2>
+                <div class="fully-qualified-name">mrs.application.service.reservation.ReservationService</div>
+
+                
+                    
+                
+
+                <section class="method">
+                    <h3>予約を取消す</h3>
+                    <div class="fully-qualified-name">cancel(Reservation):void</div>
+                    <dl class="depends">
+                        <dt>要求するもの（引数）</dt>
+                        <dd>
+                            <a class="method-argument-item" href="./domain.html#mrs.application.domain.model.reservation.Reservation">予約情報</a>
+                        </dd>
+                        
+                        
+                    </dl>
+
+                    <section class="description markdown"></section>
+                </section>
+
+                <section class="method">
+                    <h3>予約情報を取得する</h3>
+                    <div class="fully-qualified-name">findOne(ReservationId):Reservation</div>
+                    <dl class="depends">
+                        <dt>要求するもの（引数）</dt>
+                        <dd>
+                            <a class="method-argument-item" href="./domain.html#mrs.application.domain.model.reservation.ReservationId">予約ID</a>
+                        </dd>
+                        <dt>得られるもの（戻り値）</dt>
+                        <dd><a href="./domain.html#mrs.application.domain.model.reservation.Reservation">予約情報</a></dd>
+                    </dl>
+
+                    <section class="description markdown"></section>
+                </section>
+
+                <section class="method">
+                    <h3>予約一覧を取得する</h3>
+                    <div class="fully-qualified-name">findReservations(ReservableRoomId):ReservationList</div>
+                    <dl class="depends">
+                        <dt>要求するもの（引数）</dt>
+                        <dd>
+                            <a class="method-argument-item" href="./domain.html#mrs.application.domain.model.reservation.ReservableRoomId">予約可能な会議室のID</a>
+                        </dd>
+                        <dt>得られるもの（戻り値）</dt>
+                        <dd><a href="./domain.html#mrs.application.domain.model.reservation.ReservationList">予約一覧</a></dd>
+                    </dl>
+
+                    <section class="description markdown"></section>
+                </section>
+
+                <section class="method">
+                    <h3>予約を行う</h3>
+                    <div class="fully-qualified-name">reserve(Reservation):Reservation</div>
+                    <dl class="depends">
+                        <dt>要求するもの（引数）</dt>
+                        <dd>
+                            <a class="method-argument-item" href="./domain.html#mrs.application.domain.model.reservation.Reservation">予約情報</a>
+                        </dd>
+                        <dt>得られるもの（戻り値）</dt>
+                        <dd><a href="./domain.html#mrs.application.domain.model.reservation.Reservation">予約情報</a></dd>
+                    </dl>
+
+                    <section class="description markdown"></section>
+                </section>
+            </section>
+        
+            <section class="type">
+                <h2><a name="mrs.application.service.room.RoomService">会議室サービス</a></h2>
+                <div class="fully-qualified-name">mrs.application.service.room.RoomService</div>
+
+                
+                    
+                
+
+                <section class="method">
+                    <h3>会議室を取得する</h3>
+                    <div class="fully-qualified-name">findMeetingRoom(RoomId):MeetingRoom</div>
+                    <dl class="depends">
+                        <dt>要求するもの（引数）</dt>
+                        <dd>
+                            <a class="method-argument-item" href="./domain.html#mrs.application.domain.model.room.RoomId">会議室ID</a>
+                        </dd>
+                        <dt>得られるもの（戻り値）</dt>
+                        <dd><a href="./domain.html#mrs.application.domain.model.room.MeetingRoom">会議室</a></dd>
+                    </dl>
+
+                    <section class="description markdown"></section>
+                </section>
+
+                <section class="method">
+                    <h3>予約可能会議室を取得する</h3>
+                    <div class="fully-qualified-name">findReservableRooms(ReservedDate):ReservableRoomList</div>
+                    <dl class="depends">
+                        <dt>要求するもの（引数）</dt>
+                        <dd>
+                            <a class="method-argument-item" href="./domain.html#mrs.application.domain.model.reservation.ReservedDate">予約日</a>
+                        </dd>
+                        <dt>得られるもの（戻り値）</dt>
+                        <dd><a href="./domain.html#mrs.application.domain.model.reservation.ReservableRoomList">予約可能な会議室一覧</a></dd>
+                    </dl>
+
+                    <section class="description markdown"></section>
+                </section>
+            </section>
+        
+    </main>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/marked@5.1.0/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.2.3/dist/mermaid.min.js"></script>
+    <script src="./assets/jig.js"></script>
+
+</body>
+</html>

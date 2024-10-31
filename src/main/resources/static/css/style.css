@@ -256,7 +256,7 @@ img {
 
 .collection-object-item-content-name {
     font-weight: bold;
-    font-size: 1.0rem;
+    font-size: 1rem;
     margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
@@ -297,7 +297,6 @@ img {
 }
 
 .button-contanier {
-
 }
 
 button.link-style {
@@ -621,12 +620,11 @@ table.form {
 table.form tr {
     width: 100px;
     text-align: left;
-    padding-right: 1em
+    padding-right: 1em;
 }
 
 table.form td {
     width: 80px;
     text-align: right;
-    padding-right: 1em
+    padding-right: 1em;
 }
-

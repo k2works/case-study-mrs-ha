@@ -31,6 +31,8 @@ $ gradle bootRun
 
 ## 構成
 
+[Javaで記述したソフトウェア仕様を図形表現で可視化したり一覧表にまとめる](https://case-study-mrs-ha.vercel.app/docs/release/v0.1/jig/index.html)
+
 - [要件](./docs/req.adoc)
 - [開発](./docs/dev.adoc)
 - [構築](./docs/build.adoc)
