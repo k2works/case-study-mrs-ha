@@ -52,6 +52,16 @@ const asciidoctor = {
         watch("./public/**/*.html").on("change", browserSync.reload);
         cb();
     },
+    release: (cb) => {
+        const inputRootDir = "./docs";
+        const outputRootDir = "./public/docs";
+
+        const inputDir = `${inputRootDir}/release`;
+        const docsOutput = `${outputRootDir}/release`;
+        const source = `${inputDir}/**/*.*`;
+        src(source).pipe(dest(docsOutput));
+        cb();
+    },
 }
 
 const marp = {
@@ -170,7 +180,7 @@ const webpackBuildTasks = () => {
 }
 
 const asciidoctorBuildTasks = () => {
-    return series(asciidoctor.clean, asciidoctor.build);
+    return series(asciidoctor.clean, asciidoctor.build, asciidoctor.release);
 }
 
 const marpBuildTasks = () => {
