@@ -170,3 +170,5 @@ docker/mssql/data
 docker/mssql/log
 docker/schemaspy/data
 docker/schemaspy/output
+
+.vercel
